@@ -1,0 +1,8 @@
+{
+    "name": "mww/olympos-theme",
+    "type": "october-theme",
+    "description": "A demo theme to learn how OctoberCMS works",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
