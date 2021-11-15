@@ -1,0 +1,8 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table mww_movie_'
+    - builder_table_create_mww_movie_.php
+1.0.3:
+    - 'Created table mww_movie_genre'
+    - builder_table_create_mww_movie_genre.php

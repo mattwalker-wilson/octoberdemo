@@ -1,0 +1,20 @@
+columns:
+    movie_title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    movie_year:
+        label: Year
+        type: text
+        searchable: true
+        sortable: true
+    movie_certificate:
+        label: Certificate
+        type: text
+        searchable: true
+        sortable: true
+    movie_synopsis:
+        label: Synopsis
+        type: text
+        searchable: true

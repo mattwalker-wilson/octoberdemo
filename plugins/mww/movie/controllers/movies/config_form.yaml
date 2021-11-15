@@ -1,0 +1,10 @@
+name: Movies
+form: $/mww/movie/models/movies/fields.yaml
+modelClass: mww\Movie\Models\Movies
+defaultRedirect: mww/movie/movies
+create:
+    redirect: 'mww/movie/movies/update/:id'
+    redirectClose: mww/movie/movies
+update:
+    redirect: mww/movie/movies
+    redirectClose: mww/movie/movies

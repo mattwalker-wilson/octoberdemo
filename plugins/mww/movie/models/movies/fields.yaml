@@ -1,0 +1,51 @@
+fields:
+    movie_title:
+        label: Title
+        span: left
+        type: text
+    movie_synopsis:
+        label: Synopsis
+        size: large
+        span: right
+        cssClass: ''
+        stretch: 1
+        type: richeditor
+    movie_certificate:
+        label: Certificate
+        span: left
+        type: text
+    movie_year:
+        label: Year
+        span: left
+        type: text
+    movie_slug:
+        label: Slug
+        span: left
+        preset:
+            field: movie_title
+            type: slug
+        type: text
+    movie_poster:
+        label: 'Movie Poster'
+        mode: image
+        imageWidth: '150'
+        imageHeight: '150'
+        fileTypes: 'jpg,jpeg,bmp,gif,png'
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: left
+        type: fileupload
+    movie_gallery:
+        label: Gallery
+        mode: image
+        imageWidth: '100'
+        imageHeight: '100'
+        fileTypes: 'jpeg,jpg,gif,png,bmp'
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: right
+        type: fileupload

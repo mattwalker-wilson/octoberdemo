@@ -33,6 +33,20 @@ h3.header-icon.cms-asset:before {
 h3.header-icon.cms-placeholder:before {
   background: url('../images/icon-placeholders.png') no-repeat 0 0;
 }
+/* mww for list of Movie Gallery Pictures */
+ul.inline-list, 
+ol.inline-list {
+  list-style-type: none;
+  list-style-position: outside;
+  list-style-image: none;
+  display:block;
+  padding: 0;
+  clear: both;
+}
+ul.inline-list li, 
+ol.inline-list li {
+  display:inline-block;
+}
 ul.list-with-ticks {
   padding: 0;
 }

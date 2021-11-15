@@ -2,7 +2,9 @@
   position: relative;
 }
 .component-backend-richeditor .field-richeditor {
-  border: none;
+ // border: none;
+ min-height:10rem !important;
+ display:block !important;
 }
 .component-backend-richeditor .fr-box.fr-basic .fr-element.fr-view {
   padding: 10px 10px;
