@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class Movies extends Model
+class Movie extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
@@ -25,12 +25,20 @@ class Movies extends Model
      * 
      * Relationships 
      */
-     public $attachOne = [
+    public $attachOne = [
          'movie_poster' => 'System\Models\File'
-     ];
+    ];
 
-     public $attachMany = [
+    public $attachMany = [
         'movie_gallery' => 'System\Models\File'
+    ];
+
+    public $belongsToMany = [
+        'genres' => [
+            'mww\Movie\Models\Genre',
+            'table' => 'mww_movie_pivot',
+            'order' => 'genre_title'
+            ]
     ];
 
     /**

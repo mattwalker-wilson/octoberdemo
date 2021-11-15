@@ -1,11 +1,11 @@
-title = "Movie Details"
-layout = "default"
 url = "/movie/:slug"
-meta_title = " Movie Title meta tag"
+layout = "default"
+title = "Movie Details"
+meta_title = "Movie Title meta tag"
 meta_description = "This is the description for the movie"
 
 [builderDetails movieDetails]
-modelClass = "mww\Movie\Models\Movies"
+modelClass = "mww\Movie\Models\Movie"
 identifierValue = "{{ :slug }}"
 modelKeyColumn = "movie_slug"
 displayColumn = "movie_title"
@@ -36,6 +36,16 @@ notFoundMessage = "Record not found"
     {% endfor %}
     </ul>
     {% endif %}
-    {% else %}
+
+    <h3>Genres</h3>
+    <ul>
+    {% for genre in record.genres %}
+        <li>
+        {{ genre.genre_title }}
+        </li>
+    {% endfor %}
+    </ul>
+    
+{% else %}
     <h2>{{ notFoundMessage }}</h2>
 {% endif %}

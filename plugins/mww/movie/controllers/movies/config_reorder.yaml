@@ -1,4 +1,4 @@
-title: Movies
-modelClass: mww\Movie\Models\Movies
+title: Movie
+modelClass: mww\Movie\Models\Movie
 toolbar:
     buttons: reorder_toolbar

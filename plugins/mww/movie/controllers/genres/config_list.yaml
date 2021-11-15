@@ -1,5 +1,5 @@
-list: $/mww/movie/models/genres/columns.yaml
-modelClass: mww\Movie\Models\Genres
+list: $/mww/movie/models/genre/columns.yaml
+modelClass: mww\Movie\Models\Genre
 title: Genres
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true

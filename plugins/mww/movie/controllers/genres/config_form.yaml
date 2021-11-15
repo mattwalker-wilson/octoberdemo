@@ -1,6 +1,6 @@
-name: Genres
-form: $/mww/movie/models/genres/fields.yaml
-modelClass: mww\Movie\Models\Genres
+name: Genre
+form: $/mww/movie/models/genre/fields.yaml
+modelClass: mww\Movie\Models\Genre
 defaultRedirect: mww/movie/genres
 create:
     redirect: 'mww/movie/genres/update/:id'

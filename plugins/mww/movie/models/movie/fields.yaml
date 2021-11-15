@@ -49,3 +49,9 @@ fields:
             extension: auto
         span: right
         type: fileupload
+    genres:
+        label: Genres
+        span: left
+        nameFrom: genre_title
+        descriptionFrom: description
+        type: relation

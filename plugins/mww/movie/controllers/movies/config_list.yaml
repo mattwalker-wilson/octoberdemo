@@ -1,6 +1,6 @@
-title: Movies
-modelClass: mww\Movie\Models\Movies
-list: $/mww/movie/models/movies/columns.yaml
+title: Movie
+modelClass: mww\Movie\Models\Movie
+list: $/mww/movie/models/movie/columns.yaml
 recordUrl: 'mww/movie/movies/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20
