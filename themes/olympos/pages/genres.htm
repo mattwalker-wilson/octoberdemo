@@ -1,0 +1,18 @@
+url = "/genres"
+layout = "default"
+title = "genres"
+
+[builderList genreList]
+modelClass = "mww\Movie\Models\Genres"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "genre_title"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 3
+pageNumber = "{{ :page }}"
+sortColumn = "genre_title"
+sortDirection = "asc"
+==
+{% component 'genreList' %}

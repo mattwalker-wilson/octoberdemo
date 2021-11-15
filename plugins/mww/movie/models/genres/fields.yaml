@@ -1,0 +1,12 @@
+fields:
+    genre_title:
+        label: Genre
+        span: left
+        type: text
+    genre_slug:
+        label: Slug
+        span: left
+        preset:
+            field: genre_title
+            type: slug
+        type: text

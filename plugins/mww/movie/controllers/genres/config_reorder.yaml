@@ -1,0 +1,4 @@
+title: Genres
+modelClass: mww\Movie\Models\Genres
+toolbar:
+    buttons: reorder_toolbar

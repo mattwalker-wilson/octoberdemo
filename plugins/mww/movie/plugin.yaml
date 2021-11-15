@@ -10,3 +10,12 @@ navigation:
         url: mww/movie/movies
         icon: icon-film
         order: '1'
+        sideMenu:
+            movie-sub-menu-item:
+                label: Movie
+                url: mww/movie/movies
+                icon: icon-film
+            genre-sub-menu:
+                label: Genres
+                url: mww/movie/genres
+                icon: icon-tags

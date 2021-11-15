@@ -1,0 +1,10 @@
+name: Genres
+form: $/mww/movie/models/genres/fields.yaml
+modelClass: mww\Movie\Models\Genres
+defaultRedirect: mww/movie/genres
+create:
+    redirect: 'mww/movie/genres/update/:id'
+    redirectClose: mww/movie/genres
+update:
+    redirect: mww/movie/genres
+    redirectClose: mww/movie/genres
