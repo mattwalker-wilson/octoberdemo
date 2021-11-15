@@ -1,0 +1,12 @@
+plugin:
+    name: 'mww.movie::lang.plugin.name'
+    description: 'mww.movie::lang.plugin.description'
+    author: 'Matt Walker-Wilson'
+    icon: oc-icon-film
+    homepage: ''
+navigation:
+    movie-menu-item:
+        label: Movies
+        url: mww/movie/movies
+        icon: icon-film
+        order: '1'

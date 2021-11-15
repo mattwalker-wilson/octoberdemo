@@ -1,0 +1,15 @@
+title: Movies
+modelClass: mww\Movie\Models\Movies
+list: $/mww/movie/models/movies/columns.yaml
+recordUrl: 'mww/movie/movies/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+defaultSort:
+    column: movie_title
+    direction: asc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

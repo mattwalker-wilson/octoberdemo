@@ -1,0 +1,41 @@
+title = "Movie Details"
+layout = "default"
+url = "/movie/:slug"
+meta_title = " Movie Title meta tag"
+meta_description = "This is the description for the movie"
+
+[builderDetails movieDetails]
+modelClass = "mww\Movie\Models\Movies"
+identifierValue = "{{ :slug }}"
+modelKeyColumn = "movie_slug"
+displayColumn = "movie_title"
+notFoundMessage = "Record not found"
+==
+{% set record = movieDetails.record %}
+{% set displayColumn = movieDetails.displayColumn %}
+{% set notFoundMessage = movieDetails.notFoundMessage %}
+
+{% if record %}
+    <h2>{{ record.movie_title}} {{ record.movie_year ?'('~record.movie_year~')'}}</h2>
+    <p>Certificate {{ record.movie_certificate}}</p>
+     
+    {% if record.movie_poster %}
+    <div style="float:left"><img src="{{record.movie_poster.thumb(150,auto)}}"  alt="{{ record.movie_title}}"  title="{{ record.movie_title}}"  /></div>
+    {% endif %}
+
+    {% if record.movie_synopsis %}
+        {{ record.movie_synopsis | raw }}
+    {% endif %}
+
+    {% if record.movie_gallery %}
+    <ul class="inline-list clearfix">
+    {% for image in record.movie_gallery %}
+        <li>
+            <img src="{{image.thumb(150,auto)}}"  alt="{{ image.path}}"  title="{{ record.movie_title}}"  />
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% else %}
+    <h2>{{ notFoundMessage }}</h2>
+{% endif %}

@@ -1,0 +1,4 @@
+title: Movies
+modelClass: mww\Movie\Models\Movies
+toolbar:
+    buttons: reorder_toolbar

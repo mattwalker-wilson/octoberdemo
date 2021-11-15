@@ -1,0 +1,12 @@
+        <meta charset="utf-8">
+        <title>Olympos - {{ record.movie_title?record.movie_title:'A Movie' }}</title>
+        <meta name="title" content="{{ record.movie_title?record.movie_title:this.page.meta_title }}">
+        <meta name="description" content="{{ record.movie_synopsis?record.movie_synopsis|striptags:this.page.meta_description}}">
+        <meta name="author" content="Matt Walker-Wilson">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="generator" content="OctoberCMS">
+        <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
+        <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/vendor/codemirror/codemirror.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
+        {% styles %}
