@@ -41,6 +41,8 @@ class Movie extends Model
             ]
     ];
 
+    protected $jsonable = ['movie_actors'] ;
+
     /**
      * @var array Validation rules
      */

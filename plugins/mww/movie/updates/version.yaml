@@ -15,3 +15,6 @@
 1.0.6:
     - 'Drop table mww_movie_genre_pivot'
     - builder_table_delete_mww_movie_genre_pivot.php
+1.0.7:
+    - 'Updated table mww_movie_'
+    - builder_table_update_mww_movie_.php
