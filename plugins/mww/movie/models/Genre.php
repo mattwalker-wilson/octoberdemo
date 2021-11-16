@@ -24,4 +24,17 @@ class Genre extends Model
      */
     public $rules = [
     ];
+
+    /** 
+     * 
+     * Relationships 
+     */
+    public $belongsToMany = [
+        'movies' => [
+            'mww\Movie\Models\Movie',
+            'table' => 'mww_movie_pivot',
+            'order' => 'movie_title'
+            ]
+    ];
+
 }
