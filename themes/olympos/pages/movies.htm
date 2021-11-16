@@ -1,4 +1,4 @@
-url = "/movies"
+url = "/movies/:page?"
 layout = "default"
 title = "Latest Movies"
 meta_title = "Upcoming Movies"
@@ -13,7 +13,7 @@ noRecordsMessage = "No records found"
 detailsPage = "movie"
 detailsKeyColumn = "movie_slug"
 detailsUrlParameter = "slug"
-recordsPerPage = 3
+recordsPerPage = 2
 pageNumber = "{{ :page }}"
 ==
 {% set records = movieList.records %}
