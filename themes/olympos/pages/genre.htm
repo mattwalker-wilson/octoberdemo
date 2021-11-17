@@ -1,0 +1,28 @@
+url = "/genre/:slug?"
+layout = "default"
+title = "Genre"
+
+[builderDetails genreDetails]
+modelClass = "mww\Movie\Models\Genre"
+identifierValue = "{{ :slug }}"
+modelKeyColumn = "genre_slug"
+displayColumn = "genre_title"
+notFoundMessage = "Record not found"
+==
+{% set record = genreDetails.record %}
+{% set displayColumn = genreDetails.displayColumn %}
+{% set notFoundMessage = genreDetails.notFoundMessage %}
+
+{% if record %}
+
+    <h3>{{ attribute(record, displayColumn) }} Movies</h3>
+    <ul>
+    {% for movie in record.movies %}
+        <li><a href="/movie/{{ movie.movie_slug }}">{{ movie.movie_title}}</a></li>
+    {% endfor %}
+    </ul>
+
+
+{% else %}
+    <h2>{{ notFoundMessage }}</h2>
+{% endif %}
