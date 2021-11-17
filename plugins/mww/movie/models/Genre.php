@@ -32,7 +32,7 @@ class Genre extends Model
     public $belongsToMany = [
         'movies' => [
             'mww\Movie\Models\Movie',
-            'table' => 'mww_movie_pivot',
+            'table' => 'mww_movie_genre_pivot',
             'order' => 'movie_title'
             ]
     ];

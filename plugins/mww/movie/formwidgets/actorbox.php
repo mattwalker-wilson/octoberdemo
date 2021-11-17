@@ -2,6 +2,7 @@
 
 use Backend\Classes\FormWidgetBase;
 use mww\Movie\Models\Movie;
+use mww\Movie\Models\Actor;
 use Config;
 
 class Actorbox extends FormWidgetBase {
@@ -15,7 +16,21 @@ class Actorbox extends FormWidgetBase {
     }
 
     public function render(){
+        $this->prepareVars();
+        //dump( $this->vars['selectedValues'] ) ;
         return $this->makePartial('widget');
+    }
+
+    public function prepareVars(){
+        $this->vars['id']               = $this->model->id;
+        $this->vars['rsAllActors']      = Actor::all()->lists('full_name','id');
+        $this->vars['selectfieldname']  = $this->formField->getName().'[]';
+        if (!empty($this->getLoadValue())) {
+            $this->vars['selectedValues']   = $this->getLoadValue();
+        }
+        else {
+            $this->vars['selectedValues'] = [];
+        }
     }
 
     public function loadAssets() 

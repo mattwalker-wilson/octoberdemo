@@ -11,11 +11,15 @@ navigation:
         icon: icon-film
         order: '1'
         sideMenu:
-            movie-sub-menu-item:
-                label: Movie
+            movie-sub-menu:
+                label: Movies
                 url: mww/movie/movies
                 icon: icon-film
             genre-sub-menu:
                 label: Genres
                 url: mww/movie/genres
                 icon: icon-tags
+            actor-sub-menu:
+                label: Actors
+                url: mww/movie/actors
+                icon: icon-star-o

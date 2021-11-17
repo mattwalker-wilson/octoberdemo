@@ -21,6 +21,8 @@ class Movie extends Model
      */
     public $table = 'mww_movie_';
 
+    protected $jsonable = ['actors'];
+
     /** 
      * 
      * Relationships 
@@ -36,12 +38,15 @@ class Movie extends Model
     public $belongsToMany = [
         'genres' => [
             'mww\Movie\Models\Genre',
-            'table' => 'mww_movie_pivot',
+            'table' => 'mww_movie_genre_pivot',
             'order' => 'genre_title'
-            ]
+        ],
+        'movie_actors' => [
+            'mww\Movie\Models\Actor',
+            'table' => 'mww_movie_actor_pivot',
+            'order' => 'actor_last_name'
+        ]
     ];
-
-    protected $jsonable = ['movie_actors'] ;
 
     /**
      * @var array Validation rules

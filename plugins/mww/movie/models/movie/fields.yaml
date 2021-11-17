@@ -51,9 +51,9 @@ fields:
         type: fileupload
     genres:
         label: Genres
-        span: left
         nameFrom: genre_title
         descriptionFrom: description
+        span: left
         type: relation
     movie_actors:
         label: Actors

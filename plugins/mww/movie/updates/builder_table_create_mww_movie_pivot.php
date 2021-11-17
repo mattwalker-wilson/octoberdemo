@@ -7,7 +7,7 @@ class BuilderTableCreateMwwMoviePivot extends Migration
 {
     public function up()
     {
-        Schema::create('mww_movie_pivot', function($table)
+        Schema::create('mww_movie_genre_pivot', function($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('movie_id');
@@ -18,6 +18,6 @@ class BuilderTableCreateMwwMoviePivot extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('mww_movie_pivot');
+        Schema::dropIfExists('mww_movie_genre_pivot');
     }
 }
