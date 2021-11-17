@@ -57,17 +57,5 @@ fields:
         type: relation
     movie_actors:
         label: Actors
-        prompt: 'Add new item'
-        style: default
-        span: left
-        type: repeater
-        form:
-            fields:
-                actor_name:
-                    label: Text
-                    span: auto
-                    type: text
-                actor_age:
-                    label: Age
-                    span: auto
-                    type: text
+        span: full
+        type: actorbox

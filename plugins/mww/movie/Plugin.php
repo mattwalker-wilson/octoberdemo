@@ -8,6 +8,15 @@ class Plugin extends PluginBase
     {
     }
 
+    public function registerFormWidgets() {
+        return [
+            'mww\Movie\FormWidgets\Actorbox' => [
+                'label' => 'Actorbox Field' ,
+                'code'  => 'actorbox'
+            ]
+        ];
+    }
+
     public function registerSettings()
     {
     }
