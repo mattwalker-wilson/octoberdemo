@@ -1,0 +1,23 @@
+fields:
+    actor_first_name:
+        label: 'First name'
+        span: left
+        type: text
+    actor_last_name:
+        label: 'Last name'
+        span: left
+        type: text
+    actor_dob:
+        label: 'Date of Birth'
+        mode: date
+        span: left
+        type: datepicker
+    actor_birth_place:
+        label: 'Birth place'
+        span: left
+        type: text
+    actor_slug:
+        label: Slug
+        span: left
+        preset:
+            type: slug

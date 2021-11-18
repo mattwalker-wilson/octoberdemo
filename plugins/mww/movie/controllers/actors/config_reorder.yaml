@@ -1,0 +1,4 @@
+title: Actors
+modelClass: mww\Movie\Models\Actor
+toolbar:
+    buttons: reorder_toolbar

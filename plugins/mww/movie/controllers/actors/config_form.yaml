@@ -1,0 +1,11 @@
+name: Actors
+modelClass: mww\Movie\Models\Actor
+form: $/mww/movie/models/actor/fields.yaml
+defaultRedirect: mww/movie/actors
+create:
+    redirect: 'mww/movie/actors/update/:id'
+    redirectClose: mww/movie/actors
+update:
+    redirect: mww/movie/actors
+    redirectClose: mww/movie/actors
+preview: {  }
