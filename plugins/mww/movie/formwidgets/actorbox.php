@@ -29,10 +29,13 @@ class Actorbox extends FormWidgetBase {
         // and getName().[] returns an array of names.
         // "Movie.actors[]"
         $this->vars['selectfieldname']  = $this->formField->getName().'[]';
+        
+        // If the recordset of actors is Not Empty, display the LoadValue
         if (!empty($this->getLoadValue())) {
             $this->vars['selectedValues']   = $this->getLoadValue();
         }
         else {
+        // else the record set of Actors is empty, display an empty array
             $this->vars['selectedValues'] = [];
         }
     }
