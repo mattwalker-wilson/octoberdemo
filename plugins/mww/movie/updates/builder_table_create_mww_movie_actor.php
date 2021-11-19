@@ -13,8 +13,8 @@ class BuilderTableCreateMwwMovieActor extends Migration
             $table->increments('id')->unsigned();
             $table->string('actor_first_name');
             $table->string('actor_last_name');
-            $table->date('actor_dob');
-            $table->string('actor_birth_place');    
+            $table->date('actor_dob')->nullable();;
+            $table->string('actor_birth_place')->nullable();;    
             $table->string('actor_slug');           
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
