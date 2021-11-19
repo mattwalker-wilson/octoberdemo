@@ -1,0 +1,36 @@
+url = "/actor/:actor_slug"
+layout = "default"
+title = "Actor Details"
+meta_title = "Actor details"
+
+[builderDetails actorDetails]
+modelClass = "mww\Movie\Models\Actor"
+identifierValue = "{{ :actor_slug }}"
+modelKeyColumn = "actor_slug"
+displayColumn = "actor_last_name"
+notFoundMessage = "Record not found for that Actor"
+==
+{% set record = actorDetails.record %}
+{% set displayColumn = actorDetails.displayColumn %}
+{% set notFoundMessage = actorDetails.notFoundMessage %}
+
+{% if record %}
+    <h2>{{ record.actor_first_name }} {{ record.actor_last_name }}</h2>
+    <p>{{ record.actor_first_name }} was born in {{ record.actor_birth_place }} on {{ record.actor_dob }}</p>
+
+    {% if record.movies %}
+        <h3>{{ record.actor_first_name }} appeared in these movies</h3>
+        <ul>
+
+        {% for movie in record.movies %}
+            <li> 
+                <a href="/movie/{{ movie.movie_slug }}">{{ movie.movie_title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}

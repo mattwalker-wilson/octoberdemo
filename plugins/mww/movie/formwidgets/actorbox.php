@@ -1,7 +1,7 @@
 <?php namespace mww\Movie\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use mww\Movie\Models\Movie;
+
 use mww\Movie\Models\Actor;
 use Config;
 
@@ -24,6 +24,10 @@ class Actorbox extends FormWidgetBase {
     public function prepareVars(){
         $this->vars['id']               = $this->model->id;
         $this->vars['rsAllActors']      = Actor::all()->lists('full_name','id');
+        
+        // OctoberCMS knows what the field name is with getName 
+        // and getName().[] returns an array of names.
+        // "Movie.actors[]"
         $this->vars['selectfieldname']  = $this->formField->getName().'[]';
         if (!empty($this->getLoadValue())) {
             $this->vars['selectedValues']   = $this->getLoadValue();

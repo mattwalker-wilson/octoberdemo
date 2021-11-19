@@ -41,7 +41,7 @@ class Movie extends Model
             'table' => 'mww_movie_genre_pivot',
             'order' => 'genre_title'
         ],
-        'movie_actors' => [
+        'actors' => [
             'mww\Movie\Models\Actor',
             'table' => 'mww_movie_actor_pivot',
             'order' => 'actor_last_name'

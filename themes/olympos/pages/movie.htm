@@ -37,13 +37,16 @@ notFoundMessage = "Record not found"
     </ul>
     {% endif %}
 
+    {% if record.actors %}
     <h3>Actors</h3>
-    {% for actor in record.movie_actors %}
-
-
-    {{ actor.actor_name }} age: {{ actor.actor_age }} <br />
-
+    <ul>
+    {% for actor in record.actors %}
+        <li>
+        <a href="/actor/{{ actor.actor_slug }}">{{ actor.full_name }}</a>
+        </li>
     {% endfor %}
+    </ul>
+    {% endif %}
 
     <h3>Genres</h3>
     <ul>

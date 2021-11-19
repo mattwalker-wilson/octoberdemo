@@ -24,7 +24,8 @@ function onStart()
                     <ul class="nav navbar-nav">
                         <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic Concepts</a></li>
                         <li class="{% if this.page.id == 'movies' %}active{% endif %}"><a href="{{ 'movies'|page }}">Movies</a></li>
-                        <li class="{% if this.page.id == 'genres' %}active{% endif %}"><a href="{{ 'genres'|page }}">Genres</a></li>                                                
+                        <li class="{% if this.page.id == 'genres' %}active{% endif %}"><a href="{{ 'genres'|page }}">Genres</a></li>
+                        <li class="{% if this.page.id == 'actors' %}active{% endif %}"><a href="{{ 'actors'|page }}">Actors</a></li>                                                                           
                         <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX Framework</a></li>
                         {% if backendUrl %}
                             <li><a href="{{ backendUrl }}" target="backend">Backend Area</a></li>

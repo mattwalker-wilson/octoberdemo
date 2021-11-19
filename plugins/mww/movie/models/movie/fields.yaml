@@ -55,7 +55,7 @@ fields:
         descriptionFrom: description
         span: left
         type: relation
-    movie_actors:
+    actors:
         label: Actors
         span: full
         type: actorbox
