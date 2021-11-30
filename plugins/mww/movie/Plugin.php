@@ -6,6 +6,9 @@ class Plugin extends PluginBase
 {
     public function registerComponents()
     {
+        return [
+            'mww\Movie\Components\Actors' => 'actors' 
+        ] ;
     }
 
     public function registerFormWidgets() {
