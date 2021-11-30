@@ -1,0 +1,13 @@
+{% set allActors = __SELF__.allActorsList %}
+
+<h3>Actors</h3>
+<ul>
+    {% for oneActor in allActors %}
+    <li>
+        {{ oneActor.actor_first_name}}
+        {{ oneActor.actor_last_name}}
+        <br />
+        Born: {{ oneActor.actor_dob  }} in {{ oneActor.actor_birth_place}}
+    </li>
+    {% endfor %}
+</ul>
