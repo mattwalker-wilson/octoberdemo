@@ -1,0 +1,23 @@
+{
+    "name": "offline/oc-csp-plugin",
+    "type": "october-plugin",
+    "description": "Content Security Policy Manager for October CMS",
+    "keywords": [
+        "october",
+        "cms",
+        "content security policy",
+        "csp",
+        "plugin"
+    ],
+    "require": {
+        "php": ">=7.1",
+        "offline/laravel-csp": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Kündig",
+            "email": "tobias@offline.ch"
+        }
+    ]
+}

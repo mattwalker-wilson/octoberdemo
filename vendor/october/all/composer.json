@@ -1,0 +1,23 @@
+{
+    "name": "october/all",
+    "description": "All modules for October CMS",
+    "homepage": "https://octobercms.com",
+    "keywords": ["october cms", "october", "core"],
+    "authors": [
+        {
+            "name": "Alexey Bobkov",
+            "email": "aleksey.bobkov@gmail.com"
+        },
+        {
+            "name": "Samuel Georges",
+            "email": "daftspunky@gmail.com"
+        }
+    ],
+    "require": {
+        "october/system": "^2.0",
+        "october/backend": "^2.0",
+        "october/cms": "^2.0",
+        "october/media": "^2.0",
+        "october/editor": "^2.0"
+    }
+}
