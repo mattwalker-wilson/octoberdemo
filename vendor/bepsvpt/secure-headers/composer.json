@@ -1,0 +1,66 @@
+{
+  "name": "bepsvpt/secure-headers",
+  "type": "library",
+  "description": "Add security related headers to HTTP response. The package includes Service Providers for easy Laravel integration.",
+  "keywords": [
+    "laravel",
+    "header",
+    "https",
+    "hsts",
+    "csp",
+    "except-ct",
+    "feature-policy",
+    "clear-site-data",
+    "referrer-policy",
+    "content-security-policy"
+  ],
+  "homepage": "https://github.com/bepsvpt/secure-headers",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "bepsvpt",
+      "email": "og7lsrszah6y3lz@infinitefa.email"
+    }
+  ],
+  "require": {
+    "php": "^7.0 || ^8.0",
+    "illuminate/support": "~5.1 || ~6.0 || ~7.0 || ~8.0"
+  },
+  "require-dev": {
+    "ext-json": "*",
+    "ext-xdebug": "*",
+    "orchestra/testbench": "~3.1 || ~4.0 || ~5.0 || ~6.0"
+  },
+  "suggest": {
+    "friendsofphp/php-cs-fixer": "Coding style fixer",
+    "phpstan/phpstan": "Static analysis tool",
+    "phpunit/phpunit": "PHP unit testing framework"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Bepsvpt\\SecureHeaders\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bepsvpt\\SecureHeaders\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
