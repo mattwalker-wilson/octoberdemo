@@ -1,0 +1,19 @@
+1.0.0:
+    - 'Initial release'
+    - create_offline_csp_logs.php
+1.0.1: 
+    - Fixed a bug where the nonce was injected into redirect responses (thanks to @marcogrueter)
+1.0.2: 
+    - Further optimized the handling of nonce injection
+1.0.3: 
+    - Added option to add more HTTP security headers
+1.0.4: 
+    - Removed `require-trusted-types` policy for backend requests
+1.0.5: 
+    - 'Added "offline.csp.extend" event that allows you to change the CSP on a per-page basis. An example is in the README.'
+1.0.6: 'Fixed handling of empty settings (thanks to @RickAcb)'
+1.0.7: 'Fixed worker sources policy for the backend (thanks to @RickAcb)'
+1.0.8: 'Optimized logging of csp-reports'
+1.0.9: 'Optimized Support for October v2'
+1.0.10: 'Handle missing csp-nonce Container binding gracefully'
+1.0.11: 'Fixed issue where trying to save the backend settings on new installations would result in an exception'
