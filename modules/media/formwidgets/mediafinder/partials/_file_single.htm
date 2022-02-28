@@ -1,7 +1,8 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-mediafinder style-file-single <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
+    class="field-mediafinder is-file is-single <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="mediafinder"
+    <?= $field->getAttributes() ?>
 >
     <div class="mediafinder-control-container">
         <div class="mediafinder-control-toolbar">
@@ -11,10 +12,10 @@
                     class="button-label"
                     data-upload-label="<?= e(trans('backend::lang.fileupload.upload')) ?>"
                     data-replace-label="<?= e(trans('backend::lang.fileupload.replace')) ?>"
-                ><?= 
+                ><?=
                     ($imageExists && !empty($imageUrl)) ?
                         e(trans('backend::lang.mediafinder.replace')) :
-                        e(trans('backend::lang.mediafinder.select')) 
+                        e(trans('backend::lang.mediafinder.select'))
                     ?></span>
             </a>
 
@@ -31,7 +32,7 @@
             <div class="icon-container">
                 <i class="octo-icon-attachment"></i>
             </div>
-            
+
             <div class="info">
                 <h4 class="filename">
                     <span data-find-file-name><?= e(ltrim($value, '/')) ?></span>

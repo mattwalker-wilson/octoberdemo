@@ -78,6 +78,7 @@ return array(
     'Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
     'Composer\\Spdx\\' => array($vendorDir . '/composer/spdx-licenses/src'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
+    'Composer\\Pcre\\' => array($vendorDir . '/composer/pcre/src'),
     'Composer\\MetadataMinifier\\' => array($vendorDir . '/composer/metadata-minifier/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),

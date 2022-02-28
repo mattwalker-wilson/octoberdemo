@@ -366,6 +366,8 @@ ESC;
 
     public function testComponentClassNotFound()
     {
+        Config::set('cms.strict_components', true);
+
         $this->expectException(\October\Rain\Exception\SystemException::class);
         $this->expectExceptionMessageMatches('/is\snot\sregistered\sfor\sthe\scomponent/');
 

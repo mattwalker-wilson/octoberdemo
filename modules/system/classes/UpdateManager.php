@@ -47,17 +47,17 @@ class UpdateManager
     protected $tempDirectory;
 
     /**
-     * @var System\Classes\PluginManager
+     * @var PluginManager
      */
     protected $pluginManager;
 
     /**
-     * @var Cms\Classes\ThemeManager
+     * @var ThemeManager
      */
     protected $themeManager;
 
     /**
-     * @var System\Classes\VersionManager
+     * @var VersionManager
      */
     protected $versionManager;
 
@@ -72,12 +72,12 @@ class UpdateManager
     protected $secret;
 
     /**
-     * @var Illuminate\Database\Migrations\Migrator
+     * @var \Illuminate\Database\Migrations\Migrator
      */
     protected $migrator;
 
     /**
-     * @var Illuminate\Database\Migrations\DatabaseMigrationRepository
+     * @var \Illuminate\Database\Migrations\DatabaseMigrationRepository
      */
     protected $repository;
 
@@ -226,9 +226,9 @@ class UpdateManager
     public function requestUpdateList()
     {
         $installed = PluginVersion::all();
-        $versions = $installed->lists('version', 'code');
-        $names = $installed->lists('name', 'code');
-        $icons = $installed->lists('icon', 'code');
+        $versions = $installed->pluck('version', 'code')->all();
+        $names = $installed->pluck('name', 'code')->all();
+        $icons = $installed->pluck('icon', 'code')->all();
         $build = Parameter::get('system::core.build');
         $themes = [];
 
@@ -494,11 +494,19 @@ class UpdateManager
     {
         $version = SystemHelper::VERSION;
 
-        if ($build = Parameter::get('system::core.build')) {
+        if ($build = $this->getCurrentBuildNumber()) {
             $version .= '.' . $build;
         }
 
         return $version;
+    }
+
+    /**
+     * getCurrentBuildNumber return the current build number
+     */
+    public function getCurrentBuildNumber(): ?string
+    {
+        return Parameter::get('system::core.build');
     }
 
     /**

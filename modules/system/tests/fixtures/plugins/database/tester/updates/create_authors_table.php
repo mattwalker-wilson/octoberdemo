@@ -13,6 +13,7 @@ class CreateAuthorsTable extends Migration
             $table->integer('country_id')->unsigned()->index()->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->string('code')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

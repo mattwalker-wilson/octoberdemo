@@ -237,7 +237,7 @@ if(this.cellProcessors[column].onKeyDown(ev)===false){return}}
 if(this.navigation.onKeydown(ev)===false){return}
 if(this.search.onKeydown(ev)===false){return}}
 Table.prototype.onFormSubmit=function(ev,data){var isSubmitHandler=data.handler===this.options.postbackHandlerName;if(isSubmitHandler){this.unfocusTable();if(!this.validate()){ev.preventDefault();return;}}
-console.log(this.options.postbackHandlerWild);console.log(this.options.postbackHandlerWild?'yes':'no');if(isSubmitHandler||this.options.postbackHandlerWild){var fieldName=this.options.fieldName.indexOf('[')>-1?this.options.fieldName+'[TableData]':this.options.fieldName+'TableData';data.options.data[fieldName]=JSON.stringify(this.dataSource.getAllData());}}
+if(isSubmitHandler||this.options.postbackHandlerWild){var fieldName=this.options.fieldName.indexOf('[')>-1?this.options.fieldName+'[TableData]':this.options.fieldName+'TableData';data.options.data[fieldName]=JSON.stringify(this.dataSource.getAllData());}}
 Table.prototype.onToolbarClick=function(ev){var target=this.getEventTarget(ev,'BUTTON'),cmd=target&&target.getAttribute('data-cmd');if(!cmd){return}
 switch(cmd){case'record-add':case'record-add-below':this.addRecord('below')
 break

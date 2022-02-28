@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Str;
+use Config;
 use System\Classes\PluginManager;
 use SystemException;
 use Illuminate\Support\Facades\App;
@@ -192,16 +193,29 @@ class ComponentManager
      * @param string $name A component class name or code.
      * @param CmsObject $cmsObject The Cms object that spawned this component.
      * @param array $properties The properties set by the Page or Layout.
-     * @return ComponentBase The component object.
+     * @return ComponentBase|null The component object.
      */
     public function makeComponent($name, $cmsObject = null, $properties = [])
     {
         $className = $this->resolve($name);
         if (!$className) {
-            throw new SystemException(sprintf(
-                'Class name is not registered for the component "%s". Check the component plugin.',
-                $name
-            ));
+            // @deprecated 4 lines below
+            // v2.1 still uses strict mode by default, remove if version >= 2.2
+            $strictMode = Config::get('cms.strict_components', null);
+            if ($strictMode === null) {
+                $strictMode = true;
+            }
+            // Use 1 line below when removed
+            // $strictMode = Config::get('cms.strict_components', false);
+            if ($strictMode) {
+                throw new SystemException(sprintf(
+                    'Class name is not registered for the component "%s". Check the component plugin.',
+                    $name
+                ));
+            }
+            else {
+                return null;
+            }
         }
 
         if (!class_exists($className)) {

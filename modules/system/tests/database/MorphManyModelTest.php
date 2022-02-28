@@ -40,7 +40,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals([
             'user-created',
             'user-updated'
-        ], $author->event_log->lists('action'));
+        ], $author->event_log->pluck('action')->all());
 
         // Set by primary key
         $eventId = $event3->id;
@@ -51,7 +51,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals('Database\Tester\Models\Author', $event3->related_type);
         $this->assertEquals([
             'user-deleted'
-        ], $author->event_log->lists('action'));
+        ], $author->event_log->pluck('action')->all());
 
         // Nullify
         $author->event_log = null;
@@ -67,7 +67,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals('Database\Tester\Models\Author', $event4->related_type);
         $this->assertEquals([
             'user-restored'
-        ], $author->event_log->lists('action'));
+        ], $author->event_log->pluck('action')->all());
     }
 
     public function testGetRelationValue()
@@ -107,7 +107,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals($author->id, $event->related_id);
         $this->assertEquals([
             'user-created'
-        ], $author->event_log->lists('action'));
+        ], $author->event_log->pluck('action')->all());
 
         // New session
         $sessionKey = uniqid('session_key', true);
@@ -119,7 +119,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals($author->id, $event->related_id);
         $this->assertEquals([
             'user-created'
-        ], $author->event_log->lists('action'));
+        ], $author->event_log->pluck('action')->all());
 
         // Commit deferred (model is deleted as per definition)
         $author->save(null, $sessionKey);
@@ -152,7 +152,7 @@ class MorphManyModelTest extends PluginTestCase
         // Commit deferred
         $tagForPost->save(null, $sessionKey);
         $this->assertEquals(1, $tagForPost->posts()->count());
-        $this->assertEquals([$post->id], $tagForPost->posts->lists('id'));
+        $this->assertEquals([$post->id], $tagForPost->posts->pluck('id')->all());
         $this->assertEquals(88, $tagForPost->posts->first()->pivot->added_by);
 
         // New session

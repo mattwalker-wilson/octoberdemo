@@ -235,6 +235,14 @@ class Form extends WidgetBase
     }
 
     /**
+     * renderFields renders the specified fields.
+     */
+    public function renderFields(array $fields): string
+    {
+        return $this->makePartial('form_fields', ['fields' => $fields]);
+    }
+
+    /**
      * Renders a single form field
      *
      * Options:

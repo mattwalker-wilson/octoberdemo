@@ -6,7 +6,7 @@ use October\Rain\Filesystem\Definitions as FileDefinitions;
 use Carbon\Carbon;
 
 /**
- * Represents a file or folder in the Media Library.
+ * MediaLibraryItem represents a file or folder in the Media Library.
  *
  * @package october\media
  * @author Alexey Bobkov, Samuel Georges
@@ -22,51 +22,52 @@ class MediaLibraryItem
     const FILE_TYPE_DOCUMENT = 'document';
 
     /**
-     * @var string Specifies the item path relative to the Library root.
+     * @var string path specifies the item path relative to the Library root.
      */
     public $path;
 
     /**
-     * @var integer Specifies the item size.
+     * @var integer size specifies the item size.
      * For files the item size is measured in bytes. For folders it
      * contains the number of files in the folder.
      */
     public $size;
 
     /**
-     * @var integer Contains the last modification time (Unix timestamp).
+     * @var integer lastModified contains the last modification time (Unix timestamp).
      */
     public $lastModified;
 
     /**
-     * @var string Specifies the item type.
+     * @var string type specifies the item type.
      */
     public $type;
 
     /**
-     * @var string Specifies the public URL of the item.
+     * @var string publicUrl specifies the public URL of the item.
      */
     public $publicUrl;
 
     /**
-     * @var array Contains a default list of image files and directories to ignore.
+     * @var array imageExtensions contains a default list of image files and directories to ignore.
      * Override with config: system.storage.media.imageExtensions
      */
     protected static $imageExtensions;
 
     /**
-     * @var array Contains a default list of video files and directories to ignore.
+     * @var array videoExtensions contains a default list of video files and directories to ignore.
      * Override with config: system.storage.media.videoExtensions
      */
     protected static $videoExtensions;
 
     /**
-     * @var array Contains a default list of audio files and directories to ignore.
+     * @var array audioExtensions contains a default list of audio files and directories to ignore.
      * Override with config: system.storage.media.audioExtensions
      */
     protected static $audioExtensions;
 
     /**
+     * __construct a library item
      * @param string $path
      * @param int $size
      * @param int $lastModified
@@ -83,6 +84,7 @@ class MediaLibraryItem
     }
 
     /**
+     * isFile
      * @return bool
      */
     public function isFile()
@@ -91,7 +93,7 @@ class MediaLibraryItem
     }
 
     /**
-     * Returns the file type by its name.
+     * getFileType returns the file type by its name.
      * The known file types are: image, video, audio, document
      * @return string Returns the file type or NULL if the item is a folder.
      */
@@ -128,7 +130,7 @@ class MediaLibraryItem
     }
 
     /**
-     * Returns the item size as string.
+     * sizeToString returns the item size as string.
      * For file-type items the size is the number of bytes. For folder-type items
      * the size is the number of items contained by the item.
      * @return string Returns the size as string.
@@ -141,7 +143,7 @@ class MediaLibraryItem
     }
 
     /**
-     * Returns the item last modification date as string.
+     * lastModifiedAsString returns the item last modification date as string.
      * @return string Returns the item's last modification date as string.
      */
     public function lastModifiedAsString()

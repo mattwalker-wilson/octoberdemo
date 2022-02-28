@@ -39,23 +39,32 @@ class ThemeData extends Model
     protected $jsonable = ['data'];
 
     /**
-     * @var array The rules to be applied to the data.
+     * @var array rules to be applied to the data.
      */
     public $rules = [];
 
     /**
-     * @var array Relations
+     * @var array customMessages to be applied to the data.
+     */
+    public $customMessages = [];
+
+    /**
+     * @var array attributeNames to be applied to the data.
+     */
+    public $attributeNames = [];
+
+    /**
+     * @var array attachOne relations
      */
     public $attachOne = [];
 
     /**
-     * @var ThemeData Cached array of objects
+     * @var ThemeData instances of cached objects
      */
     protected static $instances = [];
 
     /**
-     * Before saving the model, strip dynamic attributes applied from config.
-     * @return void
+     * beforeSave the model, strip dynamic attributes applied from config.
      */
     public function beforeSave()
     {
@@ -70,7 +79,7 @@ class ThemeData extends Model
     }
 
     /**
-     * Clear asset cache after saving to ensure `assetVar` form fields take
+     * afterSave clear asset cache after saving to ensure `assetVar` form fields take
      * immediate effect.
      */
     public function afterSave()

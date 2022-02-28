@@ -30,23 +30,23 @@
     FormWidget.prototype.init = function() {
         this.$form = this.$el.closest('form');
 
-        this.bindDependents();
-        this.bindCheckboxlist();
-        this.toggleEmptyTabs();
-        this.bindLazyTabs();
-        this.bindCollapsibleSections();
-
+        $('.nav-tabs', this.$el).on('shown.bs.tab shownLinkable.oc.tab', 'li.tab-lazy > a', this.proxy(this.showLazyTab));
         $('.field-checkboxlist', this.$el).on('oc.triggerOn.afterUpdate', this.proxy(this.toggleCheckboxlist));
         this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs));
         this.$el.one('dispose-control', this.proxy(this.dispose));
+
+        this.bindDependents();
+        this.bindCheckboxlist();
+        this.bindCollapsibleSections();
+        this.toggleEmptyTabs();
     }
 
     FormWidget.prototype.dispose = function() {
+        $('.nav-tabs', this.$el).off('shown.bs.tab shownLinkable.oc.tab', 'li.tab-lazy > a', this.proxy(this.showLazyTab));
         $('.field-checkboxlist', this.$el).off('oc.triggerOn.afterUpdate', this.proxy(this.toggleCheckboxlist));
         this.$el.off('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs));
         this.$el.off('click', '[data-field-checkboxlist-all]');
         this.$el.off('click', '[data-field-checkboxlist-none]');
-        this.$el.off('click', '.tab-lazy [data-toggle="tab"]');
         $('.section-field[data-field-collapsible]', this.$form).off('click');
 
         this.$el.off('dispose-control', this.proxy(this.dispose));
@@ -207,7 +207,7 @@
             /*
              * Check each tab pane for form field groups
              */
-            $('.tab-pane:not(.is-lazy)', tabControl).each(function() {
+            $('.tab-pane:not(.is-lazy):not(.nohide)', tabControl).each(function() {
                 var hasControls = $('.form-group:not(:empty):not(.hide)', $(this)).length;
 
                 $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
@@ -230,32 +230,30 @@
     /*
      * Render tab form fields once a lazy tab is selected.
      */
-    FormWidget.prototype.bindLazyTabs = function() {
-        this.$el.on('click', '.tab-lazy [data-toggle="tab"]', function() {
-            var $el = $(this),
-                handlerName = $el.data('tab-lazy-handler');
+    FormWidget.prototype.showLazyTab = function(ev) {
+        var $el = $(ev.target),
+            handlerName = $el.data('tab-lazy-handler');
 
-            $.request(handlerName, {
-                data: {
-                    target: $el.data('target'),
-                    name: $el.data('tab-name'),
-                    section: $el.data('tab-section')
-                },
-                success: function(data) {
-                    this.success(data);
-                    $el.parent().removeClass('tab-lazy');
+        $.request(handlerName, {
+            data: {
+                target: $el.data('target'),
+                name: $el.data('tab-name'),
+                section: $el.data('tab-section')
+            },
+            success: function(data) {
+                this.success(data);
+                $el.parent().removeClass('tab-lazy');
 
-                    // Trigger all input presets to populate new fields.
-                    setTimeout(function() {
-                        $('[data-input-preset]').each(function() {
-                            var preset = $(this).data('oc.inputPreset')
-                            if (preset && preset.$src) {
-                                preset.$src.trigger('input')
-                            }
-                        })
-                    }, 0);
-                }
-            });
+                // Trigger all input presets to populate new fields.
+                setTimeout(function() {
+                    $('[data-input-preset]').each(function() {
+                        var preset = $(this).data('oc.inputPreset')
+                        if (preset && preset.$src) {
+                            preset.$src.trigger('input')
+                        }
+                    })
+                }, 0);
+            }
         });
     }
 

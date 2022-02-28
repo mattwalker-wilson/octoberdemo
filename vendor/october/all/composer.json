@@ -14,10 +14,10 @@
         }
     ],
     "require": {
-        "october/system": "^2.0",
-        "october/backend": "^2.0",
-        "october/cms": "^2.0",
-        "october/media": "^2.0",
-        "october/editor": "^2.0"
+        "october/system": "2.1.*",
+        "october/backend": "2.1.*",
+        "october/cms": "2.1.*",
+        "october/media": "2.1.*",
+        "october/editor": "2.1.*"
     }
 }

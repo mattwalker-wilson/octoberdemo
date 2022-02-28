@@ -1,9 +1,10 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-mediafinder style-image-single is-image <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
+    class="field-mediafinder is-image is-single <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="mediafinder"
     data-thumbnail-width="<?= $imageWidth ?: '0' ?>"
     data-thumbnail-height="<?= $imageHeight ?: '0' ?>"
+    <?= $field->getAttributes() ?>
 >
     <div class="mediafinder-control-container">
         <div class="mediafinder-control-toolbar">
@@ -13,10 +14,10 @@
                     class="button-label"
                     data-upload-label="<?= e(trans('backend::lang.fileupload.upload')) ?>"
                     data-replace-label="<?= e(trans('backend::lang.fileupload.replace')) ?>"
-                ><?= 
+                ><?=
                     ($imageExists && !empty($imageUrl)) ?
                         e(trans('backend::lang.mediafinder.replace')) :
-                        e(trans('backend::lang.mediafinder.select')) 
+                        e(trans('backend::lang.mediafinder.select'))
                     ?></span>
             </a>
 

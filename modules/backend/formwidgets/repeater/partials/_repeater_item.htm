@@ -37,9 +37,7 @@
          data-control="formwidget"
          data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
          data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'">
-        <?php foreach ($widget->getFields() as $field): ?>
-            <?= $widget->renderField($field) ?>
-        <?php endforeach ?>
+         <?= $widget->renderFields($widget->getFields()) ?>
         <?php if ($useGroups): ?>
             <input type="hidden" name="<?= $widget->arrayName ?>[_group]" value="<?= $groupCode ?>" />
         <?php endif ?>

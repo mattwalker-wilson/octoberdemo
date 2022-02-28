@@ -581,10 +581,13 @@ class Controller
      */
     protected function initTwigEnvironment()
     {
-        $useCache = !Config::get('cms.enable_twig_cache', true);
+        $useCache = Config::get('cms.enable_twig_cache', true);
         $isDebugMode = System::checkDebugMode();
+        // @deprecated 2 lines below
         $strictVariables = Config::get('cms.enable_twig_strict_variables', false);
-        $strictVariables = $strictVariables ?? $isDebugMode;
+        $strictVariables = Config::get('cms.strict_variables', $strictVariables ?? $isDebugMode);
+        // Use 1 line below when removed
+        // $strictVariables = Config::get('cms.strict_variables', false);
         $forceBytecode = Config::get('cms.force_bytecode_invalidation', false);
 
         $options = [
@@ -1440,43 +1443,65 @@ class Controller
     //
 
     /**
-     * Adds a component to the page object
-     * @param mixed  $name        Component class name or short name
-     * @param string $alias       Alias to give the component
-     * @param array  $properties  Component properties
-     * @param bool   $addToLayout Add to layout, instead of page
-     * @return ComponentBase Component object
+     * addComponent class or short name to the page or layout object, assigning
+     * it an alias with configuration as properties.
+     * @param mixed  $name
+     * @param string $alias
+     * @param array  $properties
+     * @param bool   $addToLayout
+     * @return ComponentBase|null
      */
     public function addComponent($name, $alias, $properties, $addToLayout = false)
     {
         $manager = ComponentManager::instance();
 
         if ($addToLayout) {
-            if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
+            $componentObj = $manager->makeComponent($name, $this->layoutObj, $properties);
         }
         else {
-            if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
+            $componentObj = $manager->makeComponent($name, $this->pageObj, $properties);
         }
 
+        if (!$componentObj) {
+            // @deprecated 4 lines below
+            // v2.1 still uses strict mode by default, remove if version >= 2.2
+            $strictMode = Config::get('cms.strict_components', null);
+            if ($strictMode === null) {
+                $strictMode = true;
+            }
+            // Use 1 line below when removed
+            // $strictMode = Config::get('cms.strict_components', false);
+            if ($strictMode) {
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+            }
+            else {
+                return $this->vars[$alias] = null;
+            }
+        }
+
+        $componentObj->alias = $alias;
+
+        if ($addToLayout) {
+            $this->layout->components[$alias] = $componentObj;
+        }
+        else {
+            $this->page->components[$alias] = $componentObj;
+        }
+
+        $this->vars[$alias] = $componentObj;
+
         $this->setComponentPropertiesFromParams($componentObj);
+
         $componentObj->init();
+
         return $componentObj;
     }
 
     /**
-     * Searches the layout and page components by an alias
+     * findComponentByName searches the layout and page components by an alias
+     * and returns the component object if found.
      * @param $name
-     * @return ComponentBase The component object, if found
+     * @return ComponentBase|null
      */
     public function findComponentByName($name)
     {
@@ -1497,9 +1522,10 @@ class Controller
     }
 
     /**
-     * Searches the layout and page components by an AJAX handler
+     * findComponentByHandler searches the layout and page components by an AJAX handler
+     * and returns the component object if found.
      * @param string $handler
-     * @return ComponentBase The component object, if found
+     * @return ComponentBase|null
      */
     public function findComponentByHandler($handler)
     {
@@ -1520,8 +1546,9 @@ class Controller
 
     /**
      * findComponentByPartial searches the layout and page components by a partial file
+     * and returns the component object if found.
      * @param string $partial
-     * @return ComponentBase The component object, if found
+     * @return ComponentBase|null
      */
     public function findComponentByPartial($partial)
     {

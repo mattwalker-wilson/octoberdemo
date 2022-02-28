@@ -145,6 +145,17 @@
                 self.selectItem($(this), true);
             });
 
+            $(event.relatedTarget).on('ajaxSetup', '#controlFilterPopover input.filter-search-input', function(event, context){
+                var $form = self.$el.closest('form');
+                if (!$form.length) {
+                    return;
+                }
+
+                $.each($form.serializeArray(), function(key, arr) {
+                    context.options.data[arr.name] = arr.value;
+                });
+            });
+
             $(event.relatedTarget).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
                 self.filterAvailable(data.scopeName, data.options.available);
             });

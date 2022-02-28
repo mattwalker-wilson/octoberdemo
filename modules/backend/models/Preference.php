@@ -6,12 +6,11 @@ use Model;
 use Config;
 use Session;
 use BackendAuth;
-use DirectoryIterator;
 use DateTime;
 use DateTimeZone;
 
 /**
- * Backend preferences for the backend user
+ * Preference model for the backend user
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -45,7 +44,7 @@ class Preference extends Model
     public $rules = [];
 
     /**
-     * Initialize the seed data for this model. This only executes when the
+     * initSettingsData for this model. This only executes when the
      * model is first created or reset to default.
      * @return void
      */
@@ -56,19 +55,18 @@ class Preference extends Model
         $this->fallback_locale = $this->getFallbackLocale($this->locale);
         $this->timezone = $config->get('backend.timezone', $config->get('app.timezone'));
 
-        $this->editor_font_size = $config->get('editor.font_size', 12);
-        $this->editor_word_wrap = $config->get('editor.word_wrap', 'fluid');
-        $this->editor_code_folding = $config->get('editor.code_folding', 'manual');
-        $this->editor_tab_size = $config->get('editor.tab_size', 4);
         $this->editor_theme = $config->get('editor.theme', static::DEFAULT_THEME);
-        $this->editor_show_invisibles = $config->get('editor.show_invisibles', false);
-        $this->editor_highlight_active_line = $config->get('editor.highlight_active_line', true);
-        $this->editor_use_hard_tabs = $config->get('editor.use_hard_tabs', false);
-        $this->editor_show_gutter = $config->get('editor.show_gutter', true);
-        $this->editor_auto_closing = $config->get('editor.auto_closing', false);
+        $this->editor_word_wrap = $config->get('editor.word_wrap', 'fluid');
+        $this->editor_font_size = $config->get('editor.font_size', 12);
+        $this->editor_tab_size = $config->get('editor.tab_size', 4);
+        $this->editor_code_folding = $config->get('editor.code_folding', 'manual');
         $this->editor_autocompletion = $config->get('editor.editor_autocompletion', 'manual');
-        $this->editor_enable_snippets = $config->get('editor.enable_snippets', false);
+        $this->editor_show_gutter = $config->get('editor.show_gutter', true);
+        $this->editor_highlight_active_line = $config->get('editor.highlight_active_line', true);
+        $this->editor_auto_closing = $config->get('editor.auto_closing', true);
+        $this->editor_use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->editor_display_indent_guides = $config->get('editor.display_indent_guides', false);
+        $this->editor_show_invisibles = $config->get('editor.show_invisibles', false);
         $this->editor_show_print_margin = $config->get('editor.show_print_margin', false);
     }
 

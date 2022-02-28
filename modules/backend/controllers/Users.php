@@ -183,7 +183,7 @@ class Users extends SettingsController
          * Mark default groups
          */
         if (!$form->model->exists) {
-            $defaultGroupIds = UserGroup::where('is_new_user_default', true)->lists('id');
+            $defaultGroupIds = UserGroup::where('is_new_user_default', true)->pluck('id')->all();
 
             $groupField = $form->getField('groups');
             if ($groupField) {

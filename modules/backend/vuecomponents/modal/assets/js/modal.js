@@ -199,8 +199,8 @@ Vue.component('backend-component-modal', {
 
             var that = this;
             Vue.nextTick(function() {
-                that.loadPosition();
                 that.in = true;
+                that.loadPosition();
             });
 
             $(document.body).on('keydown', this.onKeyDown);
@@ -330,8 +330,11 @@ Vue.component('backend-component-modal', {
                     return;
                 }
 
+                // Focus after visbility animations are ready
                 var defaultFocus = $(this.$refs.content).find('[data-default-focus]').first();
-                defaultFocus.focus();
+                setTimeout(function() {
+                    defaultFocus.focus();
+                }, 100);
 
                 return;
             }
@@ -346,7 +349,12 @@ Vue.component('backend-component-modal', {
                 this.$el !== ev.target &&
                 !this.$refs.content.contains(ev.target)
             ) {
-                $(this.$refs.content).find('[data-default-focus]').first().focus();
+                // Focus after visbility animations are ready
+                var defaultFocus = $(this.$refs.content).find('[data-default-focus]').first();
+                setTimeout(function() {
+                    defaultFocus.focus();
+                }, 100);
+
                 return false;
             }
         },

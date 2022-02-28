@@ -273,12 +273,16 @@ class ImportExportController extends ControllerBehavior
         $path = $this->getImportFilePath();
         $reader = $this->createCsvReader($path);
 
-        $statement = (new CsvStatement)
-            ->offset(post('first_row_titles') ? 1 : 0)
-            ->limit(50);
+        if (post('first_row_titles')) {
+            $reader->setHeaderOffset(1);
+        }
 
-        $records = $statement->process($reader);
-        $result = $records->fetchColumn((int) $columnId);
+        $result = (new CsvStatement)
+            ->limit(50)
+            ->process($reader)
+            ->fetchColumn((int) $columnId)
+        ;
+
         $data = iterator_to_array($result, false);
 
         /*

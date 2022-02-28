@@ -151,14 +151,22 @@ trait OctoberUtilCommands
                 ['{{locale}}', '{{messages}}'],
                 [$locale, json_encode($messages)],
                 File::get($stub)
-            );
+            ).PHP_EOL;
 
             /*
              * Include the moment localization data
              */
             $momentPath = base_path() . '/modules/system/assets/ui/vendor/moment/locale/'.$locale.'.js';
             if (File::exists($momentPath)) {
-                $contents .= PHP_EOL.PHP_EOL.File::get($momentPath).PHP_EOL;
+                $contents .= PHP_EOL.File::get($momentPath).PHP_EOL;
+            }
+
+            /*
+             * Include the select localization data
+             */
+            $selectPath = base_path() . '/modules/system/assets/ui/vendor/select2/js/i18n/'.$locale.'.js';
+            if (File::exists($selectPath)) {
+                $contents .= PHP_EOL.File::get($selectPath).PHP_EOL;
             }
 
             File::put($destPath, $contents);
@@ -241,7 +249,7 @@ trait OctoberUtilCommands
                     $filenames[] = $file->getFileName();
                 }
 
-                $foundModels = FileModel::whereIn('disk_name', $filenames)->lists('disk_name');
+                $foundModels = FileModel::whereIn('disk_name', $filenames)->pluck('disk_name')->all();
 
                 foreach ($chunk as $file) {
                     if (!in_array($file->getFileName(), $foundModels)) {

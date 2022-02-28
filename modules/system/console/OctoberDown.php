@@ -27,6 +27,6 @@ class OctoberDown extends Command
      */
     public function handle()
     {
-        $this->error('Command october:up is deprecated, please use october:migrate --rollback instead');
+        $this->error('Command october:down is deprecated, please use october:migrate --rollback instead');
     }
 }

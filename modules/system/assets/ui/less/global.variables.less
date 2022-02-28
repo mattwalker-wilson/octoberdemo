@@ -18,34 +18,42 @@
 @font-path: "font";
 @image-path: "images";
 
-//
 // Breakpoints
 // --------------------------------------------------
 
-// Extra small screen / phone
-@screen-xs:                  480px;
-@screen-xs-min:              @screen-xs;
-@screen-phone:               @screen-xs-min;
+// Extra small screen
+@screen-xs-min: 480px;
 
 // Small screen / tablet
-@screen-sm:                  768px;
-@screen-sm-min:              @screen-sm;
-@screen-tablet:              @screen-sm-min;
+@screen-sm-min: 768px;
 
 // Medium screen / desktop
-@screen-md:                  992px;
-@screen-md-min:              @screen-md;
-@screen-desktop:             @screen-md-min;
+@screen-md-min: 992px;
 
 // Large screen / wide desktop
-@screen-lg:                  1200px;
-@screen-lg-min:              @screen-lg;
-@screen-lg-desktop:          @screen-lg-min;
+@screen-lg-min: 1200px;
+
+// Extra large screen
+@screen-xl-min: 1400px;
 
 // So media queries don't overlap when required, provide a maximum
-@screen-xs-max:              (@screen-sm-min - 1);
-@screen-sm-max:              (@screen-md-min - 1);
-@screen-md-max:              (@screen-lg-min - 1);
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+@screen-lg-max: (@screen-xl-min - 1);
+
+//
+// Breakpoints (@deprecated)
+// --------------------------------------------------
+
+@screen-xs:                  @screen-xs-min;
+@screen-phone:               @screen-xs-min;
+@screen-sm:                  @screen-sm-min;
+@screen-tablet:              @screen-sm-min;
+@screen-md:                  @screen-md-min;
+@screen-desktop:             @screen-md-min;
+@screen-lg:                  @screen-lg-min;
+@screen-lg-desktop:          @screen-lg-min;
 
 //
 // Typography
@@ -101,6 +109,7 @@
 @brand-primary:          #6a6cf7;
 @brand-secondary:        #e67e22;
 @brand-accent:           #3498db;
+@brand-selection:        #6bc48d;
 @brand-success:          #86cB43;
 @brand-info:             #5bc0de;
 @brand-warning:          #f0ad4e;
@@ -154,8 +163,6 @@
 
 @color-grey-7: #2C3E4F;
 @color-alert: #FFD422;
-
-@color-selection: #6bc48d;
 
 @background-color-focus: rgba(215,225,234,0.7);
 @background-color-focus-dark: rgba(215,225,234,0.2);

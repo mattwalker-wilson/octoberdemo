@@ -378,6 +378,20 @@ class NavigationManager
     }
 
     /**
+     * removeSideMenuItems with multiple codes
+     * @param string $owner
+     * @param string $code
+     * @param array  $sideCodes
+     * @return void
+     */
+    public function removeSideMenuItems($owner, $code, $sideCodes)
+    {
+        foreach ($sideCodes as $sideCode) {
+            $this->removeSideMenuItem($owner, $code, $sideCode);
+        }
+    }
+
+    /**
      * listMainMenuItems returns a list of the main menu items.
      * @return array
      */

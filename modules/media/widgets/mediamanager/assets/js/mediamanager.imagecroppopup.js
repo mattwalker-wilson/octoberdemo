@@ -67,8 +67,7 @@
             extraData: data,
             size: 'adaptive',
             adaptiveHeight: true,
-            handler: this.options.alias + '::onLoadImageCropPopup',
-            zIndex: 1200 // Media Manager can be opened in a popup, so this new popup should have a higher z-index
+            handler: this.options.alias + '::onLoadImageCropPopup'
         })
     }
 
@@ -381,7 +380,7 @@
         this.$popupElement.find('form').request(this.options.alias+'::onEndCroppingSession')
 
         // Release clickedElement reference inside redactor.js
-        // If we don't do it, the image editor popup DOM elements 
+        // If we don't do it, the image editor popup DOM elements
         // won't be removed from the memory.
         $(document).trigger('mousedown')
 

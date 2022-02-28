@@ -4,6 +4,7 @@ use Database\Tester\Models\Category;
 use Database\Tester\Models\Post as PostModel;
 use Database\Tester\Models\Role;
 use Database\Tester\Models\Author;
+use Database\Tester\Models\Product;
 
 class BelongsToManyModelTest extends PluginTestCase
 {
@@ -15,6 +16,7 @@ class BelongsToManyModelTest extends PluginTestCase
         include_once base_path() . '/modules/system/tests/fixtures/plugins/database/tester/models/Author.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/database/tester/models/Category.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/database/tester/models/Post.php';
+        include_once base_path() . '/modules/system/tests/fixtures/plugins/database/tester/models/Product.php';
 
         $this->runPluginRefreshCommand('Database.Tester');
     }
@@ -229,8 +231,31 @@ class BelongsToManyModelTest extends PluginTestCase
         $author->roles()->add($role2, null, ['is_executive' => 1]);
         $author->roles()->add($role3, null, ['is_executive' => 0]);
 
-        $this->assertEquals([1, 2], $author->executive_authors->lists('id'));
-        $this->assertEquals([1, 2], $author->executive_authors()->lists('id'));
-        $this->assertEquals([1, 2], $author->executive_authors()->get()->lists('id'));
+        $this->assertEquals([1, 2], $author->executive_authors->pluck('id')->all());
+        $this->assertEquals([1, 2], $author->executive_authors()->pluck('id')->all());
+        $this->assertEquals([1, 2], $author->executive_authors()->get()->pluck('id')->all());
+    }
+
+    public function testCustomPivotKeys()
+    {
+        Model::unguard();
+        $author = Author::create(['name' => 'Stevie', 'email' => 'stevie@email.tld', 'code' => 'STEVIE']);
+        $product1 = Product::create(['name' => "Stevie Goes to the Mall", 'code' => "SKU001"]);
+        $product2 = Product::create(['name' => "Stevie Goes Camping", 'code' => "SKU002"]);
+        $product3 = Product::create(['name' => "Stevie Cooks Dinner", 'code' => "SKU003"]);
+        Model::reguard();
+
+        $author->products()->add($product1);
+        $author->products()->add($product2);
+        $author->products()->add($product3);
+
+        $result = Db::table('database_tester_authors_products')->get();
+        $this->assertEquals($result[0]->author_code, 'STEVIE');
+        $this->assertEquals($result[0]->product_code, 'SKU001');
+        $this->assertEquals($result[1]->author_code, 'STEVIE');
+        $this->assertEquals($result[1]->product_code, 'SKU002');
+        $this->assertEquals($result[2]->author_code, 'STEVIE');
+        $this->assertEquals($result[2]->product_code, 'SKU003');
+        $this->assertEquals([1, 2, 3], $author->products->pluck('id')->all());
     }
 }

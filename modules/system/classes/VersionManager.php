@@ -5,6 +5,7 @@ use File;
 use Yaml;
 use Carbon\Carbon;
 use October\Rain\Database\Updater;
+use Exception;
 
 /**
  * VersionManager manages the versions and database updates for plugins
@@ -388,7 +389,7 @@ class VersionManager
     protected function getDatabaseVersion($code)
     {
         if ($this->databaseVersions === null) {
-            $this->databaseVersions = Db::table('system_plugin_versions')->lists('version', 'code');
+            $this->databaseVersions = Db::table('system_plugin_versions')->pluck('version', 'code')->all();
         }
 
         if (!isset($this->databaseVersions[$code])) {
@@ -468,15 +469,28 @@ class VersionManager
             return;
         }
 
-        $this->updater->setUp($updateFile);
+        try {
+            $this->updater->setUp($updateFile);
 
-        Db::table('system_plugin_history')->insert([
-            'code' => $code,
-            'type' => self::HISTORY_TYPE_SCRIPT,
-            'version' => $version,
-            'detail' => $script,
-            'created_at' => new Carbon
-        ]);
+            Db::table('system_plugin_history')->insert([
+                'code' => $code,
+                'type' => self::HISTORY_TYPE_SCRIPT,
+                'version' => $version,
+                'detail' => $script,
+                'created_at' => new Carbon
+            ]);
+        }
+        catch (Exception $ex) {
+            try {
+                $this->note('- <error>v' . $version . ':  Migration "' . $script . '" failed, attempting to rollback</error>');
+                $this->updater->packDown($updateFile);
+            }
+            catch (Exception $ex) {
+                $this->note('<error>Rollback failed! Reason: "' . $ex->getMessage() . '"</error>');
+            }
+
+            throw $ex;
+        }
     }
 
     /**

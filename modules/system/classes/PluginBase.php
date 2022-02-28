@@ -225,7 +225,7 @@ class PluginBase extends ServiceProviderBase
      * The layouts must be returned in the following format:
      *
      *     return [
-     *         'marketing'    => 'acme.blog::layouts.marketing',
+     *         'marketing' => 'acme.blog::layouts.marketing',
      *         'notification' => 'acme.blog::layouts.notification',
      *     ];
      *
@@ -257,7 +257,7 @@ class PluginBase extends ServiceProviderBase
      * The partials must be returned in the following format:
      *
      *     return [
-     *         'tracking'  => 'acme.blog::partials.tracking',
+     *         'tracking' => 'acme.blog::partials.tracking',
      *         'promotion' => 'acme.blog::partials.promotion',
      *     ];
      *
@@ -270,7 +270,6 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * registerConsoleCommand registers a new console (artisan) command
-     *
      * @param string $key The command name
      * @param string $class The command class
      * @return void
@@ -286,7 +285,6 @@ class PluginBase extends ServiceProviderBase
 
     /**
      * getConfigurationFromYaml reads configuration from YAML file
-     *
      * @param string|null $exceptionMessage
      * @return array|bool
      * @throws SystemException

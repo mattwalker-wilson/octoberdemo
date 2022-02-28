@@ -51,9 +51,10 @@ class BrandSetting extends Model
      */
     public $cacheKey = 'backend::brand.custom_css';
 
-    const PRIMARY_COLOR = '#6A6CF7';
+    const PRIMARY_COLOR = '#6a6cf7';
     const SECONDARY_COLOR = '#e67e22';
     const ACCENT_COLOR = '#3498db';
+    const SELECTION_COLOR = '#6bc48d';
 
     const MENU_INLINE = 'inline';
     const MENU_TEXT = 'text';
@@ -86,6 +87,7 @@ class BrandSetting extends Model
         $this->primary_color = self::getBaseConfig('primary_color', self::PRIMARY_COLOR);
         $this->secondary_color = self::getBaseConfig('secondary_color', self::SECONDARY_COLOR);
         $this->accent_color = self::getBaseConfig('accent_color', self::ACCENT_COLOR);
+        $this->selection_color = self::getBaseConfig('selection_color', self::SELECTION_COLOR);
         $this->menu_mode = self::getBaseConfig('menu_mode', self::MENU_INLINE);
         $this->login_background_type = self::getBaseConfig('login_background_type', self::DEFAULT_LOGIN_BG_TYPE);
         $this->login_background_color = self::getBaseConfig('login_background_color', self::DEFAULT_LOGIN_COLOR);
@@ -213,11 +215,12 @@ class BrandSetting extends Model
         $wallpaperSize = self::get('login_background_wallpaper_size', self::DEFAULT_WALLPAPER_SIZE);
 
         $parser->ModifyVars([
-            'logo-image'      => "'".self::getLogo()."'",
-            'brand-primary'   => $primaryColor,
+            'logo-image' => "'".self::getLogo()."'",
+            'brand-primary' => $primaryColor,
             'brand-secondary' => $secondaryColor,
-            'brand-accent'    => $accentColor,
-            'login-bg-color'  => $loginBgColor,
+            'brand-accent' => $accentColor,
+            'brand-selection' => $accentColor,
+            'login-bg-color' => $loginBgColor,
             'login-wallpaper-size' => $wallpaperSize,
             'login-wallpaper' => "'".self::getLoginWallpaperImage()."'"
         ]);

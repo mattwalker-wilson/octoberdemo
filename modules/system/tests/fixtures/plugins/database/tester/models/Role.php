@@ -27,7 +27,7 @@ class Role extends Model
      */
     public $belongsToMany = [
         'authors' => [
-            'Database\Tester\Models\User',
+            User::class,
             'table' => 'database_tester_authors_roles'
         ],
     ];

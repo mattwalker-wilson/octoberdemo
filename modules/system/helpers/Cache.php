@@ -35,7 +35,7 @@ class Cache
         $instance->clearCombiner();
         $instance->clearCache();
 
-        if (!Config::get('cms.enable_twig_cache', true)) {
+        if (Config::get('cms.enable_twig_cache', true)) {
             $instance->clearTwig();
         }
 

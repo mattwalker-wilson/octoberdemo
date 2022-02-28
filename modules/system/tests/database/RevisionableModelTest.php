@@ -72,7 +72,7 @@ class RevisionableModelTest extends PluginTestCase
             'description',
             'is_published',
             'published_at'
-        ], $history->lists('field'));
+        ], $history->pluck('field')->all());
     }
 
     public function testExceedingRevisionLimit()

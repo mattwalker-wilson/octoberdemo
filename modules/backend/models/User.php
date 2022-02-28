@@ -1,10 +1,12 @@
 <?php namespace Backend\Models;
 
+use Str;
 use Mail;
 use Event;
 use Config;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
+use ValidationException;
 
 /**
  * User is an administrator model
@@ -115,17 +117,46 @@ class User extends UserBase
             $options = [];
         }
 
-        // Default is "mm" (Mystery man)
-        $default = array_get($options, 'default', 'mm');
-
+        // User has avatar defined
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size, $options);
         }
 
-        return '//www.gravatar.com/avatar/' .
-            md5(strtolower(trim($this->email))) .
-            '?s='. $size .
-            '&d='. urlencode($default);
+        // User has no avatar, look for default
+        $defaultConfig = Config::get('backend.default_avatar', 'gravatar');
+
+        // Default gravatar is "retro"
+        if ($defaultConfig === 'gravatar') {
+            $default = array_get($options, 'default', 'retro');
+
+            return '//www.gravatar.com/avatar/' .
+                md5(strtolower(trim($this->email))) .
+                '?s='. $size .
+                '&d='. urlencode($default);
+        }
+
+        // Default backend image
+        if ($defaultConfig === 'local') {
+            return Backend::skinAsset('assets/images/default-avatar.png');
+        }
+
+        // Custom URL
+        return $defaultConfig;
+    }
+
+    /**
+     * beforeValidate event
+     */
+    public function beforeValidate()
+    {
+        if ($this->validationForced) {
+            return;
+        }
+
+        // Will pass if password attribute is dirty
+        if ($password = $this->getOriginalHashValue('password')) {
+            $this->validatePasswordPolicy($password);
+        }
     }
 
     /**
@@ -236,5 +267,56 @@ class User extends UserBase
         }
 
         return $user;
+    }
+
+    /**
+     * validatePasswordPolicy will check the password based on the backend policy
+     */
+    public function validatePasswordPolicy($password)
+    {
+        $policy = Config::get('backend.password_policy', []);
+
+        if ($minLength = $policy['min_length'] ?? 4) {
+            if (mb_strlen($password) < $minLength) {
+                throw new ValidationException(['password' => __('Password must have a minimum of length of :min characters', ['min'=>$minLength])]);
+            }
+        }
+
+        if ($policy['require_uppercase'] ?? false) {
+            if (mb_strtolower($password) === $password) {
+                throw new ValidationException(['password' => __('Password must contain at least one uppercase character.')]);
+            }
+        }
+
+        if ($policy['require_lowercase'] ?? false) {
+            if (mb_strtoupper($password) === $password) {
+                throw new ValidationException(['password' => __('Password must contain at least one lowercase character.')]);
+            }
+        }
+
+        if ($policy['require_number'] ?? false) {
+            if (!array_filter(str_split($password), 'is_numeric')) {
+                throw new ValidationException(['password' => __('Password must contain at least one number.')]);
+            }
+        }
+
+        if ($policy['require_nonalpha'] ?? false) {
+            if (!Str::contains($password, str_split("!@#$%^&*()_+-=[]{}|'"))) {
+                throw new ValidationException(['password' => __('Password must contain at least one nonalphanumeric character.')]);
+            }
+        }
+
+        /**
+         * @event user.validatePasswordPolicy
+         * Called when the user password is validated against the policy
+         *
+         * Example usage:
+         *
+         *     $model->bindEvent('user.validatePasswordPolicy', function (string $password) use ($model) {
+         *         throw new ValidationException(['password' => 'Prevent anything from validating ever!']);
+         *     });
+         *
+         */
+        $this->fireEvent('user.validatePasswordPolicy', compact('password'));
     }
 }

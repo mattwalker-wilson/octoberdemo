@@ -32,28 +32,28 @@ if (window.jQuery.request !== undefined) {
         /*
          * Prepare the options and execute the request
          */
-        var $form = options.form ? $(options.form) : $el.closest('form'),
-            $triggerEl = !!$form.length ? $form : $el,
-            context = { handler: handler, options: options };
+        var context = { handler: handler, options: options };
+        $el.trigger('ajaxSetup', [context]);
 
         /*
          * Validate the form client-side
          */
+        var $form = options.form ? $(options.form) : $el.closest('form'),
+            $triggerEl = !!$form.length ? $form : $el;
+
         if (
-            (options.browserValidate !== undefined) &&
-            typeof document.createElement('input').reportValidity == 'function' &&
-            $form &&
-            $form[0] &&
-            !$form[0].checkValidity()
+            options.browserValidate !== undefined &&
+            typeof document.createElement('input').reportValidity === 'function' &&
+            !!$form.length &&
+            !$form.get(0).checkValidity()
         ) {
-            $form[0].reportValidity();
+            $form.get(0).reportValidity();
             return false;
         }
 
         /*
          * Execute the request
          */
-        $el.trigger('ajaxSetup', [context]);
         var _event = jQuery.Event('oc.beforeRequest');
         $triggerEl.trigger(_event, context);
         if (_event.isDefaultPrevented()) {
@@ -273,11 +273,18 @@ if (window.jQuery.request !== undefined) {
 
                 var isFirstInvalidField = true;
                 $.each(fields, function focusErrorField(fieldName, fieldMessages) {
-                    fieldName = fieldName.replace(/\.(\w+)/g, '[$1]');
+                    var fieldNameRaw = fieldName.replace(/\.(\w+)/g, '[$1]'),
+                        fieldNameArr = ('.'+fieldName).replace(/\.(\w+)/g, '[$1]');
 
-                    var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first();
+                    var fieldNameOptions = [
+                        '[name="'+fieldNameRaw+'"]',
+                        '[name="'+fieldNameRaw+'[]"]',
+                        '[name$="'+fieldNameArr+'"]',
+                        '[name$="'+fieldNameArr+'[]"]'
+                    ];
+
+                    var fieldElement = $form.find(fieldNameOptions.join(', ')).filter(':enabled').first();
                     if (fieldElement.length > 0) {
-
                         var _event = jQuery.Event('ajaxInvalidField');
                         $(window).trigger(_event, [fieldElement.get(0), fieldName, fieldMessages, isFirstInvalidField]);
 

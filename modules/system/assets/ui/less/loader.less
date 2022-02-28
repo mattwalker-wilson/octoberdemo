@@ -28,9 +28,8 @@ a.oc-loading, button.oc-loading, span.oc-loading {
 // Loading indicator
 // --------------------------------------------------
 
-@color-loading-indicator-text:               #999999;
-@color-stripe-loader:                        @brand-accent;
-@loader-image-path:                          @image-path;
+@color-loading-indicator-text: #999999;
+@loader-image-path: @image-path;
 
 .loading-indicator {
     padding: 20px 20px 20px 60px;
@@ -250,7 +249,8 @@ html.cssanimations {
     .stripe, .stripe-loaded {
         height: @stripe-loader-height;
         display: block;
-        background: @color-stripe-loader;
+        // @deprecated make brand primary
+        background: @brand-accent;
         position: absolute;
         .box-shadow(~"inset 0 1px 1px -1px #FFF, inset 0 -1px 1px -1px #FFF");
     }

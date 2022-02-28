@@ -89,7 +89,7 @@ class Auth extends Controller
     protected function handleSubmitSignin()
     {
         $rules = [
-            'login'    => 'required|between:2,255',
+            'login' => 'required|between:2,255',
             'password' => 'required|between:4,255'
         ];
 
@@ -234,6 +234,13 @@ class Auth extends Controller
         $code = post('code');
         $user = BackendAuth::findUserById(post('id'));
 
+        if (!$user) {
+            throw new ApplicationException(trans('backend::lang.account.reset_error'));
+        }
+
+        // Validate password against policy
+        $user->validatePasswordPolicy(post('password'));
+
         if (!$user->checkResetPasswordCode($code)) {
             throw new ApplicationException(trans('backend::lang.account.reset_error'));
         }
@@ -296,12 +303,15 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
+        // Validate password against policy
+        (new UserModel)->validatePasswordPolicy(post('password'));
+
         // Create user and sign in
         $user = UserModel::createDefaultAdmin(post());
         BackendAuth::login($user);
 
         // Redirect
-        Flash::success('Welcome to your Administration Area, '.post('first_name'));
+        Flash::success(__('Welcome to your Administration Area, :name', ['name' => post('first_name')]));
         return Backend::redirect('backend');
     }
 

@@ -25,7 +25,7 @@ class RoleImpersonator extends WidgetBase
     }
 
     /**
-     * Adds widget specific asset files. Use $this->addJs() and $this->addCss()
+     * loadAssets adds widget specific asset files. Use $this->addJs() and $this->addCss()
      * to register new assets to include on the page.
      * @return void
      */

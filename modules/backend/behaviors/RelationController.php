@@ -764,12 +764,12 @@ class RelationController extends ControllerBehavior
     /**
      * evalToolbarButtons determines the default buttons based on the model relationship type.
      */
-    protected function evalToolbarButtons()
+    protected function evalToolbarButtons(): array
     {
         $buttons = $this->getConfig('view[toolbarButtons]');
 
         if ($buttons === false) {
-            return null;
+            return [];
         }
         elseif (is_string($buttons)) {
             return array_map('trim', explode('|', $buttons));

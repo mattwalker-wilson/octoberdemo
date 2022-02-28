@@ -28,7 +28,7 @@
         <div class="form-group text-field span-left is-required">
             <label>Input Left</label>
             <input type="text" name="" value="" class="form-control" />
-             <p class="help-block">Example below help text here.</p>
+            <p class="help-block">Example below help text here.</p>
         </div>
 
         <!-- Text Input (Right) -->
@@ -139,17 +139,17 @@
 
             <div class="radio custom-radio">
                 <input name="radio" value="1" type="radio" id="radio_1">
-                <label for="radio_1">Paris</label>
+                <label for="radio_1" class="storm-icon-pseudo">Paris</label>
                 <p class="help-block">Do not send new comment notifications.</p>
             </div>
             <div class="radio custom-radio">
                 <input checked="checked" name="radio" value="2" type="radio" id="radio_2">
-                <label for="radio_2">Dubai</label>
+                <label for="radio_2" class="storm-icon-pseudo">Dubai</label>
                 <p class="help-block">Send new comment notifications only to post author.</p>
             </div>
             <div class="radio custom-radio">
                 <input name="radio" value="3" type="radio" id="radio_3">
-                <label for="radio_3">New Zealand</label>
+                <label for="radio_3" class="storm-icon-pseudo">New Zealand</label>
                 <p class="help-block">Notify all users who have permissions to receive blog notifications.</p>
             </div>
         </div>
@@ -161,17 +161,17 @@
 
             <div class="checkbox custom-checkbox">
                 <input id="checkbox-example1" name="checkbox" value="1" type="checkbox">
-                <label class="choice" for="checkbox-example1"> Dodge Viper</label>
+                <label class="choice" for="checkbox-example1" class="storm-icon-pseudo"> Dodge Viper</label>
                 <p class="help-block">Do not send new comment notifications.</p>
             </div>
             <div class="checkbox custom-checkbox">
                 <input checked="checked" id="checkbox-example2" name="checkbox" value="2" type="checkbox">
-                <label class="choice" for="checkbox-example2"> GM Corvette</label>
+                <label class="choice" for="checkbox-example2" class="storm-icon-pseudo"> GM Corvette</label>
                 <p class="help-block">Send new comment notifications only to post author.</p>
             </div>
             <div class="checkbox custom-checkbox">
                 <input id="checkbox-example3" name="checkbox" value="3" type="checkbox">
-                <label class="choice" for="checkbox-example3"> Porsche Boxter</label>
+                <label class="choice" for="checkbox-example3" class="storm-icon-pseudo"> Porsche Boxter</label>
                 <p class="help-block">Notify all users who have permissions to receive blog notifications.</p>
             </div>
         </div>

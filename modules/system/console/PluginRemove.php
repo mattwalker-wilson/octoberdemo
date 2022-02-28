@@ -5,6 +5,7 @@ use System;
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
+use System\Helpers\Cache as CacheHelper;
 use October\Rain\Process\Composer as ComposerProcess;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -87,6 +88,9 @@ class PluginRemove extends Command
         if (!$this->option('composer')) {
             return false;
         }
+
+        // Clear meta cache
+        CacheHelper::instance()->clearMeta();
 
         // Disabled by config
         if (Config::get('system.auto_rollback_plugins') !== true) {

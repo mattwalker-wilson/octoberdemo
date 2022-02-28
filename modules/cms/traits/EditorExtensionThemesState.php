@@ -7,10 +7,13 @@ use Cms\Classes\Theme;
 use Backend\VueComponents\DropdownMenu\ItemDefinition;
 
 /**
- * Initializes themes state for the CMS Editor Extension
+ * EditorExtensionThemesState initializes themes state for the CMS Editor Extension
  */
 trait EditorExtensionThemesState
 {
+    /**
+     * createCmsSectionThemeMenuItems
+     */
     private function createCmsSectionThemeMenuItems($section)
     {
         $user = BackendAuth::getUser();
@@ -23,8 +26,8 @@ trait EditorExtensionThemesState
         $themesFound = false;
         foreach ($themes as $theme) {
             $themesFound = true;
-            $themeName = $theme->getConfigValue('name', $theme->getDirName());
             $themeDir = $theme->getDirName();
+            $themeName = $theme->getConfigValue('name') ?: $theme->getDirName();
 
             $themeMenuItem
                 ->addItem(ItemDefinition::TYPE_RADIOBUTTON, $themeName, 'cms:set-edit-theme@'.$themeDir)

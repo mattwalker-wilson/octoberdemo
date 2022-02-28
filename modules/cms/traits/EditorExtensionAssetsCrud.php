@@ -2,23 +2,21 @@
 
 use Lang;
 use File;
-use Config;
-use Request;
 use Input;
-use Exception;
-use SystemException;
-use ApplicationException;
-use Cms\Classes\Asset;
-use Cms\Classes\Theme;
+use Request;
 use Editor\Classes\ApiHelpers;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use ApplicationException;
 
 /**
- * Implements Assets CRUD operations for the CMS Editor Extension
+ * EditorExtensionAssetsCrud implements Assets CRUD operations for the CMS Editor Extension
  */
 trait EditorExtensionAssetsCrud
 {
+    /**
+     * command_onAssetCreateDirectory
+     */
     protected function command_onAssetCreateDirectory()
     {
         $metadata = $this->getRequestMetadata();
@@ -49,7 +47,7 @@ trait EditorExtensionAssetsCrud
             throw new ApplicationException(Lang::get('cms::lang.asset.already_exists'));
         }
 
-        if (!File::makeDirectory($newFullPath)) {
+        if (!File::makeDirectory($newFullPath, 0755, true, true)) {
             throw new ApplicationException(Lang::get(
                 'cms::lang.cms_object.error_creating_directory',
                 ['name' => $newName]
@@ -57,6 +55,9 @@ trait EditorExtensionAssetsCrud
         }
     }
 
+    /**
+     * command_onAssetDelete
+     */
     protected function command_onAssetDelete()
     {
         $metadata = $this->getRequestMetadata();
@@ -67,7 +68,6 @@ trait EditorExtensionAssetsCrud
         ApiHelpers::assertIsArray($fileList);
 
         // Delete leaves first
-        //
         usort($fileList, function($a, $b) {
             return strlen($b) - strlen($a);
         });
@@ -109,6 +109,9 @@ trait EditorExtensionAssetsCrud
         }
     }
 
+    /**
+     * command_onAssetRename
+     */
     protected function command_onAssetRename()
     {
         $metadata = $this->getRequestMetadata();
@@ -156,6 +159,9 @@ trait EditorExtensionAssetsCrud
         }
     }
 
+    /**
+     * command_onAssetMove
+     */
     protected function command_onAssetMove()
     {
         $metadata = $this->getRequestMetadata();
@@ -178,7 +184,13 @@ trait EditorExtensionAssetsCrud
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
         }
 
+        // Ensure directory exists
         $destinationFullPath = $this->getAssetFullPath($destinationDir);
+        if (!File::isDirectory($destinationFullPath)) {
+            File::makeDirectory($destinationFullPath, 0755, true, true);
+        }
+
+        // Path is gone
         if (!file_exists($destinationFullPath) || !is_dir($destinationFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.destination_not_found'));
         }
@@ -237,6 +249,9 @@ trait EditorExtensionAssetsCrud
         }
     }
 
+    /**
+     * command_onAssetUpload
+     */
     protected function command_onAssetUpload()
     {
         $metadata = [
@@ -252,16 +267,12 @@ trait EditorExtensionAssetsCrud
 
         $fileName = $uploadedFile->getClientOriginalName();
 
-        /*
-         * Check valid upload
-         */
+        // Check valid upload
         if (!$uploadedFile->isValid()) {
             throw new ApplicationException(Lang::get('cms::lang.asset.file_not_valid'));
         }
 
-        /*
-         * Check file size
-         */
+        // Check file size
         $maxSize = UploadedFile::getMaxFilesize();
         if ($uploadedFile->getSize() > $maxSize) {
             throw new ApplicationException(Lang::get(
@@ -270,9 +281,7 @@ trait EditorExtensionAssetsCrud
             ));
         }
 
-        /*
-         * Check for valid file extensions
-         */
+        // Check for valid file extensions
         $assetExtensions = FileDefinitions::get('asset_extensions');
         if (!$this->validateAssetFileType($fileName, $assetExtensions)) {
             throw new ApplicationException(Lang::get(
@@ -281,9 +290,7 @@ trait EditorExtensionAssetsCrud
             ));
         }
 
-        /*
-         * Validate destination path
-         */
+        // Validate destination path
         $destinationDir = trim(Request::input('destination'));
         if (!strlen($destinationDir)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.select_destination_dir'));
@@ -293,23 +300,35 @@ trait EditorExtensionAssetsCrud
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
         }
 
+        // Ensure directory exists
         $destinationFullPath = $this->getAssetFullPath($destinationDir);
+        if (!File::isDirectory($destinationFullPath)) {
+            File::makeDirectory($destinationFullPath, 0755, true, true);
+        }
+
+        // Path is gone
         if (!file_exists($destinationFullPath) || !is_dir($destinationFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.destination_not_found'));
         }
 
-        /*
-         * Accept the uploaded file
-         */
+        // Accept the uploaded file
         $uploadedFile->move($destinationFullPath, $uploadedFile->getClientOriginalName());
     }
 
-    private function getAssetFullPath($path)
+    /**
+     * getAssetFullPath returns the full path for the current theme
+     * @param $path string
+     */
+    protected function getAssetFullPath($path): string
     {
         return $this->getAssetsPath($this->getTheme()).'/'.ltrim($path, '/');
     }
 
-    private function validateAssetPath($path)
+    /**
+     * validateAssetPath validates the asset path
+     * @param $path string
+     */
+    protected function validateAssetPath($path): bool
     {
         if (!preg_match('/^[\@0-9a-z\.\s_\-\/]+$/i', $path)) {
             return false;
@@ -322,7 +341,11 @@ trait EditorExtensionAssetsCrud
         return true;
     }
 
-    private function validateAssetName($name)
+    /**
+     * validateAssetName
+     * @param $name string
+     */
+    protected function validateAssetName($name): bool
     {
         if (!preg_match('/^[\@0-9a-z\.\s_\-]+$/i', $name)) {
             return false;
@@ -335,7 +358,12 @@ trait EditorExtensionAssetsCrud
         return true;
     }
 
-    private function validateAssetFileType($name, $assetExtensions)
+    /**
+     * validateAssetFileType
+     * @param $name string
+     * @param $assetExtensions array
+     */
+    protected function validateAssetFileType($name, $assetExtensions): bool
     {
         $extension = strtolower(File::extension($name));
         if (!in_array($extension, $assetExtensions)) {

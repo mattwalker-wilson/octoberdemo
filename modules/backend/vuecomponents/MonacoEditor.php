@@ -48,7 +48,9 @@ class MonacoEditor extends VueComponentBase
             'renderLineHighlight' => $preferences->editor_highlight_active_line ? 'all' : 'none',
             'useTabStops' => !!$preferences->editor_use_hard_tabs,
             'renderIndentGuides' => !!$preferences->editor_display_indent_guides,
-            'renderWhitespace' => $preferences->editor_show_invisibles ? 'all' : 'none'
+            'renderWhitespace' => $preferences->editor_show_invisibles ? 'all' : 'none',
+            'autoClosingBrackets' => $preferences->editor_auto_closing ? 'languageDefined' : 'never',
+            'autoClosingQuotes' => $preferences->editor_auto_closing ? 'languageDefined' : 'never',
         ];
 
         if (!$preferences->editor_show_gutter) {

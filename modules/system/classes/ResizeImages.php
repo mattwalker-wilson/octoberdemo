@@ -62,18 +62,37 @@ class ResizeImages
         $options = (array) @json_decode(@base64_decode($cacheInfo['options']), true);
         $filename = $this->getResizeFilename($cacheKey, $width, $height, $options);
 
-        // Store in temporary location
+        // Get raw cached file path
+        $rawPath = $cacheInfo['path'];
+        $tempRawPath = null;
+
+        // If path is external, copy to local filesystem
+        $isExternal = strpos($rawPath, 'http') === 0;
+        if ($isExternal) {
+            $tempRawPath = $this->getTempPath() . '/raw_' . $filename;
+            $contents = file_get_contents($rawPath);
+            file_put_contents($tempRawPath, $contents);
+        }
+
+        // Create temp path for resized file in local filesystem
         $tempPath = $this->getTempPath() . '/' . $filename;
-        file_put_contents($tempPath, file_get_contents($cacheInfo['path']));
 
         // Perform resize
-        $outputPath = $this->getOutputPath() . '/' . $filename;
-        Resizer::open($tempPath)
+        Resizer::open($isExternal ? $tempRawPath : $rawPath)
             ->resize($width, $height, $options)
-            ->save($outputPath);
+            ->save($tempPath);
+
+        // Save resized file to disk
+        $disk = Storage::disk(Config::get('system.storage.resources.disk'));
+        $resourcesFolder = Config::get('system.storage.resources.folder') . '/resize';
+        $disk->put($resourcesFolder . '/' . $filename, file_get_contents($tempPath));
 
         // Cleanup
         File::delete($tempPath);
+
+        if ($tempRawPath && file_exists($tempRawPath)) {
+            File::delete($tempRawPath);
+        }
 
         return Redirect::to($this->getPublicPath() . '/' . $filename);
     }
@@ -94,8 +113,11 @@ class ResizeImages
          */
         $cacheKey = $this->getCacheKey([$imageInfo, $width, $height, $options]);
         $filename = $this->getResizeFilename($cacheKey, $width, $height, $options);
-        $outputPath = $this->getOutputPath() . '/' . $filename;
-        if (file_exists($outputPath)) {
+        $disk = Storage::disk(Config::get('system.storage.resources.disk'));
+        $resourcesFolder = Config::get('system.storage.resources.folder');
+        $resourcesFolder .= '/resize';
+
+        if ($disk->exists($resourcesFolder . '/' . $filename)) {
             return $this->getPublicPath() . '/' . $filename;
         }
 
@@ -106,13 +128,13 @@ class ResizeImages
 
         if (!$cacheInfo) {
             $cacheInfo = [
-                'version'   => $cacheKey . '-1',
-                'source'    => $imageInfo['source'],
-                'path'      => $imageInfo['path'],
+                'version' => $cacheKey . '-1',
+                'source' => $imageInfo['source'],
+                'path' => $imageInfo['path'],
                 'extension' => $imageInfo['extension'],
-                'width'     => $width,
-                'height'    => $height,
-                'options'   => base64_encode(json_encode($options)),
+                'width' => $width,
+                'height' => $height,
+                'options' => base64_encode(json_encode($options)),
             ];
 
             $this->putCache($cacheKey, $cacheInfo);
@@ -298,10 +320,10 @@ class ResizeImages
     protected function getDefaultResizeOptions($overrideOptions = []): array
     {
         $defaultOptions = [
-            'mode'      => 'auto',
-            'offset'    => [0, 0],
-            'quality'   => 90,
-            'sharpen'   => 0,
+            'mode' => 'auto',
+            'offset' => [0, 0],
+            'quality' => 90,
+            'sharpen' => 0,
             'interlace' => false,
             'extension' => 'auto',
         ];
@@ -331,7 +353,7 @@ class ResizeImages
         $resourcesFolder .= '/resize';
 
         if (
-            Config::get('system.storage.media.disk') === 'local' &&
+            Config::get('system.storage.resources.disk') === 'local' &&
             Config::get('system.relative_links') === true
         ) {
             return $resourcesFolder;

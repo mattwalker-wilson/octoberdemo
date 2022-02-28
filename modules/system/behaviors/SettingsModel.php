@@ -181,6 +181,7 @@ class SettingsModel extends ModelBehavior
     {
         $this->fieldValues = $this->model->value ?: [];
         $this->model->attributes = array_merge($this->fieldValues, $this->model->attributes);
+        $this->model->syncOriginal();
     }
 
     /**

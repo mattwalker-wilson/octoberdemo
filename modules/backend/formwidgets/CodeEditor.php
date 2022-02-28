@@ -210,7 +210,6 @@ class CodeEditor extends FormWidgetBase
         $this->useSoftTabs = !$preferences->editor_use_hard_tabs;
         $this->showGutter = $preferences->editor_show_gutter;
         $this->autocompletion = $preferences->editor_autocompletion;
-        $this->enableSnippets = $preferences->editor_enable_snippets;
         $this->displayIndentGuides = $preferences->editor_display_indent_guides;
         $this->showPrintMargin = $preferences->editor_show_print_margin;
     }

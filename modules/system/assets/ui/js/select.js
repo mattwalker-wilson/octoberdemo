@@ -77,6 +77,18 @@
             }
 
             /*
+             * Language
+             */
+            var language = $element.data('language');
+            if (!language) {
+                language = $('meta[name="backend-locale"]').attr('content');
+            }
+
+            if (language) {
+                extraOptions.language = language;
+            }
+
+            /*
              * October AJAX
              */
             var source = $element.data('handler');

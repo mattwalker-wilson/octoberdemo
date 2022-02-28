@@ -32,7 +32,7 @@
         $el.prepend($canvas);
 
         // Truncate scoreboard in cases where there are more than 3 items
-        $legend.height(size).css('overflow', 'auto');
+        $legend.height(size).css('overflow-y', 'auto');
 
         Raphael($canvas.get(0), size, size, function(){
             self.paper = this;

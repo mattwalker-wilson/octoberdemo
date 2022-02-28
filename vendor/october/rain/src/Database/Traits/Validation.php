@@ -3,9 +3,9 @@
 use App;
 use Lang;
 use Input;
+use Validator;
 use October\Rain\Database\ModelException;
 use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Validator;
 use Exception;
 
 trait Validation
@@ -34,6 +34,11 @@ trait Validation
      *
      * public $throwOnValidation = true;
      */
+
+    /**
+     * @var bool validationForced is an internal marker to indicate if force option was used.
+     */
+    public $validationForced = false;
 
     /**
      * @var \Illuminate\Support\MessageBag validationErrors message bag instance containing
@@ -65,8 +70,9 @@ trait Validation
                  * events should still fire for consistency. So validate an
                  * empty set of rules and messages.
                  */
-                $force = array_get($options, 'force', false);
-                if ($force) {
+                $model->validationForced = array_get($options, 'force', false);
+
+                if ($model->validationForced) {
                     $valid = $model->validate([], []);
                 }
                 else {
@@ -108,6 +114,40 @@ trait Validation
     protected function getValidationAttributes()
     {
         return $this->getAttributes();
+    }
+
+    /**
+     * addValidationRule will append a rule to the stack and reset the value as a processed array
+     */
+    public function addValidationRule(string $name, $definition)
+    {
+        $rules = $this->rules[$name] ?? [];
+        if (!is_array($rules)) {
+            $rules = explode('|', $rules);
+        }
+
+        $rules[] = $definition;
+
+        $this->rules[$name] = $rules;
+    }
+
+    /**
+     * removeValidationRule removes a validation rule from the stack and resets the value as a processed array
+     */
+    public function removeValidationRule(string $name, $definition)
+    {
+        $rules = $this->rules[$name] ?? [];
+        if (!is_array($rules)) {
+            $rules = explode('|', $rules);
+        }
+
+        foreach ($rules as $key => $rule) {
+            if ($rule === $definition) {
+                unset($rules[$key]);
+            }
+        }
+
+        $this->rules[$name] = $rules;
     }
 
     /**
@@ -255,39 +295,37 @@ trait Validation
                 $customMessages = [];
             }
 
-            $translatedCustomMessages = [];
+            $transCustomMessages = [];
             foreach ($customMessages as $rule => $customMessage) {
-                $translatedCustomMessages[$rule] = Lang::get($customMessage);
+                $transCustomMessages[$rule] = Lang::get($customMessage);
             }
-
-            $customMessages = $translatedCustomMessages;
+            $customMessages = $transCustomMessages;
 
             /*
              * Attribute names, translate internal references
              */
-            if (is_null($attributeNames)) {
-                $attributeNames = [];
-            }
-
-            $attributeNames = array_merge($this->validationDefaultAttrNames, $attributeNames);
+            $attrNames = (array) $this->validationDefaultAttrNames;
 
             if (property_exists($this, 'attributeNames')) {
-                $attributeNames = array_merge($this->attributeNames, $attributeNames);
+                $attrNames = array_merge($attrNames, $this->attributeNames);
             }
 
-            $translatedAttributeNames = [];
-            foreach ($attributeNames as $attribute => $attributeName) {
-                $translatedAttributeNames[$attribute] = Lang::get($attributeName);
+            if ($attributeNames) {
+                $attrNames = array_merge($attrNames, (array) $attributeNames);
             }
 
-            $attributeNames = $translatedAttributeNames;
+            $transAttrNames = [];
+            foreach ($attrNames as $attribute => $attributeName) {
+                $transAttrNames[$attribute] = Lang::get($attributeName);
+            }
+            $attrNames = $transAttrNames;
 
             /*
              * Translate any externally defined attribute names
              */
             $translations = Lang::get('validation.attributes');
             if (is_array($translations)) {
-                $attributeNames = array_merge($translations, $attributeNames);
+                $attrNames = array_merge($translations, $attrNames);
             }
 
             /*
@@ -297,7 +335,7 @@ trait Validation
                 $data,
                 $rules,
                 $customMessages,
-                $attributeNames,
+                $attrNames,
                 $this->getConnectionName()
             );
 
@@ -371,6 +409,12 @@ trait Validation
              * Analyse each rule individually
              */
             foreach ($ruleParts as $key => $rulePart) {
+                /*
+                 * Allow rule objects
+                 */
+                if (is_object($rulePart)) {
+                    continue;
+                }
                 /*
                  * Remove primary key unique validation rule if the model already exists
                  */

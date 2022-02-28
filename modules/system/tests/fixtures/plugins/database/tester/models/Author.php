@@ -4,7 +4,6 @@ use Model;
 
 class Author extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */
@@ -19,42 +18,58 @@ class Author extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['Database\Tester\Models\User', 'delete' => true],
-        'country' => ['Database\Tester\Models\Country'],
-        'user_soft' => ['Database\Tester\Models\SoftDeleteUser', 'key' => 'user_id', 'softDelete' => true],
+        'user' => [
+            User::class,
+            'delete' => true
+        ],
+        'country' => Country::class,
+        'user_soft' => [SoftDeleteUser::class, 'key' => 'user_id', 'softDelete' => true],
     ];
 
     public $hasMany = [
-        'posts' => 'Database\Tester\Models\Post',
+        'posts' => Post::class,
     ];
 
     public $hasOne = [
-        'phone' => 'Database\Tester\Models\Phone',
+        'phone' => Phone::class,
     ];
 
     public $belongsToMany = [
         'roles' => [
-            'Database\Tester\Models\Role',
+            Role::class,
             'table' => 'database_tester_authors_roles'
         ],
         'executive_authors' => [
-            'Database\Tester\Models\Role',
+            Role::class,
             'table' => 'database_tester_authors_roles',
             'conditions' => 'is_executive = 1'
+        ],
+        'products' => [
+            Product::class,
+            'table' => 'database_tester_authors_products',
+            'key' => 'author_code',
+            'parentKey' => 'code',
+            'otherKey' => 'product_code',
+            'relatedKey' => 'code',
         ],
     ];
 
     public $morphMany = [
-        'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+        'event_log' => [
+            EventLog::class,
+            'name' => 'related',
+            'delete' => true,
+            'softDelete' => true
+        ],
     ];
 
     public $morphOne = [
-        'meta' => ['Database\Tester\Models\Meta', 'name' => 'taggable'],
+        'meta' => [Meta::class, 'name' => 'taggable'],
     ];
 
     public $morphToMany = [
         'tags' => [
-            'Database\Tester\Models\Tag',
+            Tag::class,
             'name'  => 'taggable',
             'table' => 'database_tester_taggables',
             'pivot' => ['added_by']

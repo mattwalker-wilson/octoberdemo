@@ -19,23 +19,23 @@ class User extends Model
      */
     public $hasOne = [
         'author' => [
-            'Database\Tester\Models\Author',
+            Author::class,
         ]
     ];
 
     public $hasOneThrough = [
         'phone' => [
-            'Database\Tester\Models\Phone',
-            'through' => 'Database\Tester\Models\Author',
+            Phone::class,
+            'through' => Author::class,
         ],
     ];
 
     public $attachOne = [
-        'avatar' => 'System\Models\File'
+        'avatar' => \System\Models\File::class
     ];
 
     public $attachMany = [
-        'photos' => 'System\Models\File'
+        'photos' => \System\Models\File::class
     ];
 }
 
@@ -47,14 +47,22 @@ class SoftDeleteUser extends User
 class UserWithAuthor extends User
 {
     public $hasOne = [
-        'author' => ['Database\Tester\Models\Author', 'key' => 'user_id', 'delete' => true],
+        'author' => [
+            Author::class,
+            'key' => 'user_id',
+            'delete' => true
+        ],
     ];
 }
 
 class UserWithSoftAuthor extends User
 {
     public $hasOne = [
-        'author' => ['Database\Tester\Models\SoftDeleteAuthor', 'key' => 'user_id', 'softDelete' => true],
+        'author' => [
+            SoftDeleteAuthor::class,
+            'key' => 'user_id',
+            'softDelete' => true
+        ],
     ];
 }
 

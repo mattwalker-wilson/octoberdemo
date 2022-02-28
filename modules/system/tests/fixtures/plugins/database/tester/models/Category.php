@@ -11,7 +11,7 @@ class Category extends Model
 
     public $belongsToMany = [
         'posts' => [
-            'Database\Tester\Models\Post',
+            Post::class,
             'table' => 'database_tester_categories_posts',
             'pivot' => ['category_name', 'post_name']
         ]

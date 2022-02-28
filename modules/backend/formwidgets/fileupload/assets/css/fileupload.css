@@ -1,12 +1,30 @@
-.field-fileupload .upload-files-container {
-  max-height: 390px;
+.field-fileupload.size-tiny .upload-files-container {
+  max-height: 100px;
+  overflow: auto;
+}
+.field-fileupload.size-small .upload-files-container {
+  max-height: 200px;
+  overflow: auto;
+}
+.field-fileupload.size-large .upload-files-container {
+  max-height: 400px;
+  overflow: auto;
+}
+.field-fileupload.size-huge .upload-files-container {
+  max-height: 500px;
+  overflow: auto;
+}
+.field-fileupload.size-giant .upload-files-container {
+  max-height: 700px;
+  overflow: auto;
+}
+.field-fileupload.size-adaptive {
   overflow: auto;
 }
 .field-fileupload .upload-object {
   position: relative;
   outline: none;
   display: block;
-  vertical-align: top;
   margin: 4px 4px 0 4px;
 }
 .field-fileupload .upload-object:last-child {
@@ -17,6 +35,8 @@
   color: #536061;
   font-size: 14px;
   word-break: break-all;
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
 .field-fileupload .upload-object p.description:empty {
   display: none;
@@ -120,26 +140,24 @@
 .field-fileupload .upload-object.is-error .drag-handle {
   display: none;
 }
-.field-fileupload.is-sortable {
-  position: relative;
-}
-.field-fileupload.is-sortable .upload-placeholder {
-  position: relative;
-  height: 0;
-  outline: 1px solid #e0e0e0 !important;
-  top: -3px;
-}
-.field-fileupload.is-sortable .upload-object.dragged {
-  position: absolute;
-  opacity: 0.5;
-  z-index: 2000;
-}
-.field-fileupload.is-sortable .upload-object.dragged .uploader-toolbar {
-  display: none;
-}
 .field-fileupload.is-preview .upload-button,
 .field-fileupload.is-preview a.drag-handle {
   display: none !important;
+}
+@media (min-width: 768px) {
+  .field-fileupload.is-grid .upload-files-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .field-fileupload.is-grid .upload-files-container .upload-object {
+    width: 300px;
+  }
+  .field-fileupload.is-grid .upload-files-container .upload-object h4.filename,
+  .field-fileupload.is-grid .upload-files-container .upload-object p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 .fileupload-config-form .fileupload-url-button {
   padding-left: 0;
@@ -180,11 +198,11 @@
 .fileupload-config-form .file-upload-modal-image-header + .modal-body {
   padding-top: 20px;
 }
-.field-fileupload .upload-object.upload-object-image .file-data-container .file-data-container-inner {
+.field-fileupload.is-image .upload-object.upload-object-image .file-data-container .file-data-container-inner {
   padding-left: 103px;
   min-height: 95px;
 }
-.field-fileupload .upload-object.upload-object-image .icon-container {
+.field-fileupload.is-image .upload-object.upload-object-image .icon-container {
   position: absolute;
   left: 0;
   top: 0;
@@ -214,15 +232,15 @@
   -webkit-box-pack: center;
   justify-content: center;
 }
-.field-fileupload .upload-object.upload-object-image .icon-container img {
+.field-fileupload.is-image .upload-object.upload-object-image .icon-container img {
   display: block;
   max-height: 100%;
   max-width: 100%;
 }
-.field-fileupload .upload-object.upload-object-image.mode-multi .file-data-container {
+.field-fileupload.is-image .upload-object.upload-object-image.mode-multi .file-data-container {
   margin-left: 23px;
 }
-.field-fileupload .upload-object.upload-object-image.is-error .icon-container:after {
+.field-fileupload.is-image .upload-object.upload-object-image.is-error .icon-container:after {
   content: "";
   background: none;
   font-family: FontAwesome;
@@ -239,31 +257,31 @@
   margin-left: -20px;
   text-shadow: 2px 2px 0 #fff;
 }
-.field-fileupload.is-preview .upload-object.upload-object-image.mode-multi .file-data-container {
+.field-fileupload.is-image.is-preview .upload-object.upload-object-image.mode-multi .file-data-container {
   margin-left: 0;
 }
-.field-fileupload .upload-object.upload-object-file .file-data-container-inner {
+.field-fileupload.is-file .upload-object.upload-object-file .file-data-container-inner {
   padding-top: 4px;
 }
-.field-fileupload .upload-object.upload-object-file .icon-container,
-.field-fileupload .upload-object.upload-object-file .info,
-.field-fileupload .upload-object.upload-object-file .info h4,
-.field-fileupload .upload-object.upload-object-file .info h4 p {
+.field-fileupload.is-file .upload-object.upload-object-file .icon-container,
+.field-fileupload.is-file .upload-object.upload-object-file .info,
+.field-fileupload.is-file .upload-object.upload-object-file .info h4,
+.field-fileupload.is-file .upload-object.upload-object-file .info h4 p {
   vertical-align: top;
   display: inline-block;
 }
-.field-fileupload .upload-object.upload-object-file .icon-container {
+.field-fileupload.is-file .upload-object.upload-object-file .icon-container {
   margin-top: -2px;
   width: 20px;
   height: 20px;
   position: absolute;
 }
-.field-fileupload .upload-object.upload-object-file .icon-container i {
+.field-fileupload.is-file .upload-object.upload-object-file .icon-container i {
   margin-top: 3px;
   margin-left: 3px;
   display: none;
 }
-.field-fileupload .upload-object.upload-object-file .icon-container:after {
+.field-fileupload.is-file .upload-object.upload-object-file .icon-container:after {
   width: 20px;
   height: 20px;
   margin-top: -10px;
@@ -271,59 +289,59 @@
   background-size: 20px 20px;
   opacity: 1;
 }
-.field-fileupload .upload-object.upload-object-file .info {
+.field-fileupload.is-file .upload-object.upload-object-file .info {
   padding-left: 22px;
 }
-.field-fileupload .upload-object.upload-object-file h4,
-.field-fileupload .upload-object.upload-object-file h4 p,
-.field-fileupload .upload-object.upload-object-file p.description {
+.field-fileupload.is-file .upload-object.upload-object-file h4,
+.field-fileupload.is-file .upload-object.upload-object-file h4 p,
+.field-fileupload.is-file .upload-object.upload-object-file p.description {
   margin-bottom: 0;
 }
-.field-fileupload .upload-object.upload-object-file h4 p {
+.field-fileupload.is-file .upload-object.upload-object-file h4 p {
   font-weight: normal;
 }
-.field-fileupload .upload-object.upload-object-file h4 p:before {
+.field-fileupload.is-file .upload-object.upload-object-file h4 p:before {
   content: ' (';
 }
-.field-fileupload .upload-object.upload-object-file h4 p:after {
+.field-fileupload.is-file .upload-object.upload-object-file h4 p:after {
   content: ')';
 }
-.field-fileupload .upload-object.upload-object-file .custom-checkbox-v2 {
+.field-fileupload.is-file .upload-object.upload-object-file .custom-checkbox-v2 {
   top: 6px;
 }
-.field-fileupload .upload-object.upload-object-file.mode-multi .file-data-container {
+.field-fileupload.is-file .upload-object.upload-object-file.mode-multi .file-data-container {
   margin-left: 43px;
 }
-.field-fileupload .upload-object.upload-object-file.mode-multi .drag-handle {
+.field-fileupload.is-file .upload-object.upload-object-file.mode-multi .drag-handle {
   left: 27px;
   top: 5px;
 }
-.field-fileupload .upload-object.upload-object-file.is-success .icon-container i {
+.field-fileupload.is-file .upload-object.upload-object-file.is-success .icon-container i {
   display: inline-block;
 }
-.field-fileupload .upload-object.upload-object-file.is-loading .icon-container {
+.field-fileupload.is-file .upload-object.upload-object-file.is-loading .icon-container {
   opacity: 1;
 }
-.field-fileupload .upload-object.upload-object-file.is-loading .icon-container > i {
+.field-fileupload.is-file .upload-object.upload-object-file.is-loading .icon-container > i {
   display: none;
 }
-.field-fileupload .upload-object.upload-object-file.is-loading .icon-container > i:after {
+.field-fileupload.is-file .upload-object.upload-object-file.is-loading .icon-container > i:after {
   display: block;
 }
-.field-fileupload .upload-object.upload-object-file.is-error .icon-container,
-.field-fileupload .upload-object.upload-object-file.is-error .icon-container > i {
+.field-fileupload.is-file .upload-object.upload-object-file.is-error .icon-container,
+.field-fileupload.is-file .upload-object.upload-object-file.is-error .icon-container > i {
   opacity: 1;
 }
-.field-fileupload .upload-object.upload-object-file.is-error .icon-container > i {
+.field-fileupload.is-file .upload-object.upload-object-file.is-error .icon-container > i {
   display: inline-block;
 }
-.field-fileupload .upload-object.upload-object-file.is-error .icon-container:after {
+.field-fileupload.is-file .upload-object.upload-object-file.is-error .icon-container:after {
   display: none;
 }
-.field-fileupload .upload-object.upload-object-file.is-error div.error-message {
+.field-fileupload.is-file .upload-object.upload-object-file.is-error div.error-message {
   margin-left: 22px;
 }
-.field-fileupload.is-preview .upload-object.upload-object-file.mode-multi .file-data-container {
+.field-fileupload.is-file.is-preview .upload-object.upload-object-file.mode-multi .file-data-container {
   margin-left: 0;
 }
 .field-fileupload .uploader-control-container {

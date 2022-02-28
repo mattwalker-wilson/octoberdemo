@@ -23,20 +23,28 @@ class Post extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'author' => 'Database\Tester\Models\Author',
+        'author' => Author::class,
     ];
 
     public $morphMany = [
-        'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+        'event_log' => [
+            EventLog::class,
+            'name' => 'related',
+            'delete' => true,
+            'softDelete' => true
+        ],
     ];
 
     public $morphOne = [
-        'meta' => ['Database\Tester\Models\Meta', 'name' => 'taggable'],
+        'meta' => [
+            Meta::class,
+            'name' => 'taggable'
+        ],
     ];
 
     public $belongsToMany = [
         'categories' => [
-            'Database\Tester\Models\Category',
+            Category::class,
             'table' => 'database_tester_categories_posts',
             'pivot' => ['category_name', 'post_name']
         ]
@@ -44,7 +52,7 @@ class Post extends Model
 
     public $morphToMany = [
         'tags' => [
-            'Database\Tester\Models\Tag',
+            Tag::class,
             'name'  => 'taggable',
             'table' => 'database_tester_taggables',
             'pivot' => ['added_by']
@@ -123,7 +131,10 @@ class RevisionablePost extends Post
      * @var array Relations
      */
     public $morphMany = [
-        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+        'revision_history' => [
+            \System\Models\Revision::class,
+            'name' => 'revisionable'
+        ]
     ];
 
     /**

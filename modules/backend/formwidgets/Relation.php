@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Db;
+use DbDongle;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 
@@ -140,7 +141,8 @@ class Relation extends FormWidgetBase
         if ($this->sqlSelect) {
             $nameFrom = 'selection';
             $selectColumn = $usesTree ? '*' : $relationModel->getKeyName();
-            $result = $query->select($selectColumn, Db::raw($this->sqlSelect . ' AS ' . $nameFrom));
+            $selectSql = DbDongle::raw($this->sqlSelect);
+            $result = $query->select($selectColumn, Db::raw($selectSql . ' AS ' . $nameFrom));
         }
         else {
             $nameFrom = $this->nameFrom;
@@ -155,7 +157,7 @@ class Relation extends FormWidgetBase
 
         $field->options = $usesTree
             ? $result->listsNested($nameFrom, $primaryKeyName)
-            : $result->lists($nameFrom, $primaryKeyName);
+            : $result->pluck($nameFrom, $primaryKeyName)->all();
 
         return $this->renderFormField = $field;
     }

@@ -104,7 +104,13 @@
         this.updateClasses();
 
         if (location.hash && this.options.linkable) {
-            $('li > a[href="' + location.hash + '"]', this.$tabsContainer).tab('show');
+            var $hashedAnchor = $('li > a[href="' + location.hash + '"]', this.$tabsContainer);
+            $hashedAnchor.tab('show');
+
+            // Next tick
+            setTimeout(function() {
+                $hashedAnchor.trigger('shownLinkable.oc.tab');
+            }, 1);
         }
     }
 
@@ -127,7 +133,7 @@
 
         // Setup the required tabs markup if it does not exist already.
         if ($anchor.find('> span.title > span').length < 1) {
-            var html = $anchor.html()
+            var html = $anchor.html();
             $anchor
                 .html('')
                 .append($('<span class="title"></span>')

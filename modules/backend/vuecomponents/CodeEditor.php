@@ -44,7 +44,6 @@ class CodeEditor extends VueComponentBase
             'useSoftTabs' => !$preferences->editor_use_hard_tabs,
             'showGutter' => !!$preferences->editor_show_gutter,
             'autocompletion' => $preferences->editor_autocompletion,
-            'enableSnippets' => !!$preferences->editor_enable_snippets,
             'displayIndentGuides' => !!$preferences->editor_display_indent_guides,
             'showPrintMargin' => !!$preferences->editor_show_print_margin,
             'margin' => 0,

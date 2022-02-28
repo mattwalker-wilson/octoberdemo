@@ -21,14 +21,14 @@ class Tag extends Model
 
     public $morphedByMany = [
         'authors' => [
-            'Database\Tester\Models\Author',
-            'name'  => 'taggable',
+            Author::class,
+            'name' => 'taggable',
             'table' => 'database_tester_taggables',
             'pivot' => ['added_by'],
         ],
         'posts'   => [
-            'Database\Tester\Models\Post',
-            'name'  => 'taggable',
+            Post::class,
+            'name' => 'taggable',
             'table' => 'database_tester_taggables',
             'pivot' => ['added_by'],
         ],

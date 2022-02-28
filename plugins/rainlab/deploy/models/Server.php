@@ -2,6 +2,8 @@
 
 use Http;
 use Model;
+use Carbon\Carbon;
+use System\Classes\UpdateManager;
 use ValidationException;
 use ApplicationException;
 use Exception;
@@ -30,6 +32,11 @@ class Server extends Model
         'server_name' => 'required',
         'endpoint_url' => 'required'
     ];
+
+    /**
+     * @var array dates
+     */
+    protected $dates = ['last_deploy_at'];
 
     /**
      * @var array jsonable attribute names that are json encoded and decoded from the database
@@ -77,11 +84,13 @@ class Server extends Model
     public function testBeacon(): bool
     {
         $wantCode = null;
+        $beaconVersion = null;
 
         try {
             $response = $this->transmit('healthCheck');
             $isInstalled = $response['appInstalled'] ?? false;
             $envFound = $response['envFound'] ?? false;
+            $beaconVersion = $response['beaconVersion'] ?? '1.0';
             if ($isInstalled && !$envFound) {
                 $wantCode = static::STATUS_LEGACY;
             }
@@ -96,14 +105,44 @@ class Server extends Model
             $wantCode = static::STATUS_UNREACHABLE;
         }
 
+        $differs = false;
+
+        // Version differs
+        if ($this->beacon_version !== $beaconVersion) {
+            $this->beacon_version = $beaconVersion;
+            $differs = true;
+        }
+
         // Status differs
         if ($wantCode !== null && $wantCode !== $this->status_code) {
             $this->status_code = $wantCode;
+            $differs = true;
+        }
+
+        if ($differs) {
             $this->save();
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * touchLastDeploy
+     */
+    public function touchLastDeploy()
+    {
+        $this->last_deploy_at = Carbon::now();
+        $this->save();
+    }
+
+    /**
+     * touchLastVersion
+     */
+    public function touchLastVersion()
+    {
+        $this->last_version = UpdateManager::instance()->getCurrentVersion();
+        $this->save();
     }
 
     /**
@@ -149,11 +188,20 @@ class Server extends Model
      */
     public function transmitFile(string $filePath, array $params = []): array
     {
-        $response = Http::post($this->buildUrl('fileUpload', $params), function($http) use ($filePath) {
-            $http->maxRedirects = 0;
+        $payload = $this->preparePayload('fileUpload', $params);
+        $endpointUrl = $this->endpoint_url;
+
+        // @deprecated remove in 2.0
+        if ($this->beacon_version === '1.0' || !$this->beacon_version) {
+            $endpointUrl = $this->buildUrl('fileUpload', $params);
+        }
+
+        $response = Http::post($endpointUrl, function($http) use ($payload, $filePath) {
             $http->dataFile('file', $filePath);
             $http->data('filename', md5($filePath));
             $http->data('filehash', md5_file($filePath));
+            $http->data($payload);
+            $http->maxRedirects = 0;
         });
 
         return $this->processTransmitResponse($response);
@@ -164,9 +212,28 @@ class Server extends Model
      */
     public function transmit(string $cmd, array $params = []): array
     {
-        $response = Http::get($this->buildUrl($cmd, $params));
+        $payload = $this->preparePayload($cmd, $params);
+        $endpointUrl = $this->endpoint_url;
+
+        // @deprecated remove in 2.0
+        if ($this->beacon_version === '1.0' || !$this->beacon_version) {
+            $endpointUrl = $this->buildUrl($cmd, $params);
+        }
+
+        $response = Http::post($endpointUrl, function ($http) use ($payload) {
+            $http->data($payload);
+        });
 
         return $this->processTransmitResponse($response);
+    }
+
+    /**
+     * buildUrl for the beacon with GET vars
+     * @deprecated remove in v2.0
+     */
+    protected function buildUrl(string $cmd, array $params = []): string
+    {
+        return $this->endpoint_url . '?' . http_build_query($this->preparePayload($cmd, $params));
     }
 
     /**
@@ -217,14 +284,6 @@ class Server extends Model
     }
 
     /**
-     * buildUrl for the beacon with GET vars
-     */
-    protected function buildUrl(string $cmd, array $params = []): string
-    {
-        return $this->endpoint_url . '?' . http_build_query($this->preparePayload($cmd, $params));
-    }
-
-    /**
      * preparePayload for the beacon to process
      */
     protected function preparePayload(string $cmd, array $params = []): array
@@ -251,7 +310,7 @@ class Server extends Model
     protected function createNonce(): int
     {
         $mt = explode(' ', microtime());
-        return $mt[1] . substr($mt[0], 2, 6);
+        return intval($mt[1] . substr($mt[0], 2, 6));
     }
 
     /**

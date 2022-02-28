@@ -29,14 +29,16 @@ class OctoberUpdate extends Command
      */
     public function handle()
     {
+        $composerBin = env('COMPOSER_BIN', 'composer');
+
         $this->output->writeln('<info>Updating October CMS...</info>');
 
-        $this->comment("Executing: composer update");
+        $this->comment("Executing: {$composerBin} update");
         $this->output->newLine();
 
         // Composer update
         $errCode = null;
-        passthru('composer update', $errCode);
+        passthru("$composerBin update", $errCode);
 
         if ($errCode !== 0) {
             $this->output->error('Update failed. Check output above');

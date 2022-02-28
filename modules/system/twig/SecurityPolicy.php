@@ -25,8 +25,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * @var array blockedClasses is a list of forbidden classes
      */
     protected $blockedClasses = [
+        \Twig\Environment::class,
         \Illuminate\Filesystem\Filesystem::class,
-        \Illuminate\Session\FileSessionHandler::class
+        \Illuminate\Session\FileSessionHandler::class,
+        \Illuminate\Contracts\Filesystem\Filesystem::class
     ];
 
     /**
@@ -38,8 +40,8 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * @var array blockedMethods is a list of forbidden methods
      */
     protected $blockedMethods = [
-        // Prevent manipulating Twig itself
-        'getTwig',
+        // Prevent magic bypass
+        '__call',
 
         // Prevent dynamic methods and props
         'addDynamicMethod',

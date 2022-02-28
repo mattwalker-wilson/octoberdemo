@@ -1,6 +1,7 @@
 <?php namespace Cms\Traits;
 
 use Url;
+use File;
 use Config;
 use System\Classes\CombineAssets;
 
@@ -68,6 +69,16 @@ trait ThemeAssetMaker
         foreach ($urls as &$url) {
             // Combiner alias
             if (substr($url, 0, 1) === '@') {
+                continue;
+            }
+
+            // Path symbol
+            if (File::isPathSymbol($url)) {
+                continue;
+            }
+
+            // Fully qualified local path
+            if (file_exists($url)) {
                 continue;
             }
 

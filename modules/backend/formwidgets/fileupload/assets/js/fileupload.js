@@ -327,33 +327,31 @@
     //
 
     FileUpload.prototype.bindSortable = function() {
-        var
-            self = this,
-            placeholderEl = $('<div class="upload-object upload-placeholder"/>').css({
-                width: this.options.imageWidth,
-                height: this.options.imageHeight
-            });
+        this.dragging = false;
 
-        this.$filesContainer.sortable({
-            itemSelector: 'div.upload-object.is-success',
-            nested: false,
-            tolerance: -100,
-            placeholder: placeholderEl,
+        this.sortable = Sortable.create(this.$filesContainer.get(0), {
+            // forceFallback: true,
+            animation: 150,
+            draggable: 'div.upload-object.is-success',
             handle: '.drag-handle',
-            onDrop: function ($item, container, _super) {
-                _super($item, container)
-                self.onSortAttachments()
-            },
-            distance: 10
+            onStart: $.proxy(this.onDragStart, this),
+            onChange: this.proxy(this.onSortAttachments),
+            onEnd: $.proxy(this.onDragStop, this)
         });
+    }
+
+    FileUpload.prototype.onDragStart = function(evt) {
+        this.dragging = true;
+    }
+
+    FileUpload.prototype.onDragStop = function(evt) {
+        this.dragging = false;
     }
 
     FileUpload.prototype.onSortAttachments = function() {
         if (this.options.sortHandler) {
 
-            /*
-             * Build an object of ID:ORDER
-             */
+            // Build an object of ID:ORDER
             var orderData = {}
 
             this.$el.find('.upload-object.is-success')
@@ -532,10 +530,18 @@
     }
 
     FileUpload.prototype.onDragEnter = function() {
+        if (this.dragging) {
+            return;
+        }
+
         this.$el.addClass('file-drag-over');
     }
 
     FileUpload.prototype.onDragEnd = function () {
+        if (this.dragging) {
+            return;
+        }
+
         this.$el.removeClass('file-drag-over');
     }
 

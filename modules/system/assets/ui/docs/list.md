@@ -32,7 +32,7 @@
                     <th class="list-checkbox">
                         <div class="checkbox custom-checkbox nolabel">
                             <input type="checkbox" id="checkboxAll" />
-                            <label for="checkboxAll"></label>
+                            <label for="checkboxAll" class="storm-icon-pseudo"></label>
                         </div>
                     </th>
                     <th class="sort-desc"><a href="/">Title</a></th>
@@ -49,7 +49,7 @@
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
                             <input id="checkbox_1" type="checkbox" />
-                            <label for="checkbox_1">Check</label>
+                            <label for="checkbox_1" class="storm-icon-pseudo">Check</label>
                         </div>
                     </td>
                     <td><a href="/">Welcome to October</a></td>
@@ -63,7 +63,8 @@
                 <tr class="active">
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
-                            <input id="checkbox_2" type="checkbox" checked="checked" /><label for="checkbox_2">Check The marketplace is open!</label>
+                            <input id="checkbox_2" type="checkbox" checked="checked" />
+                            <label for="checkbox_2" class="storm-icon-pseudo">Check The marketplace is open!</label>
                         </div>
                     </td>
                     <td><a href="/">The marketplace is open!</a></td>
@@ -78,7 +79,7 @@
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
                             <input id="checkbox_3" type="checkbox" />
-                            <label for="checkbox_3">Check Welcome to the Builder!</label>
+                            <label for="checkbox_3" class="storm-icon-pseudo">Check Welcome to the Builder!</label>
                         </div>
                     </td>
                     <td><a href="/">Welcome to the Builder!</a></td>
@@ -93,7 +94,7 @@
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
                             <input id="checkbox_4" type="checkbox" />
-                            <label for="checkbox_4">Check Components explained</label>
+                            <label for="checkbox_4" class="storm-icon-pseudo">Check Components explained</label>
                         </div>
                     </td>
                     <td><a href="/">Components explained</a></td>
@@ -108,7 +109,7 @@
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
                             <input id="checkbox_5" type="checkbox" />
-                            <label for="checkbox_5">Check Creating a module in 90 seconds</label>
+                            <label for="checkbox_5" class="storm-icon-pseudo">Check Creating a module in 90 seconds</label>
                         </div>
                     </td>
                     <td><a href="/">Creating a module in 90 seconds</a></td>

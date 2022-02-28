@@ -1,5 +1,8 @@
-<div id="relationManagePopup" data-request-data="_relation_field: '<?= $relationField ?>', _relation_mode: 'list'">
+<div id="relationManagePopup">
     <?= Form::open() ?>
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="_relation_mode" value="list" />
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
             <h4 class="modal-title">

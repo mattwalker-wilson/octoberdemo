@@ -348,7 +348,7 @@ paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribu
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
 this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
-MediaManager.prototype.createFolder=function(ev){$(ev.target).popup({content:this.$el.find('[data-control="new-folder-template"]').html(),zIndex:1200})}
+MediaManager.prototype.createFolder=function(ev){$(ev.target).popup({content:this.$el.find('[data-control="new-folder-template"]').html()})}
 MediaManager.prototype.onFolderPopupShown=function(ev,button,popup){$(popup).find('input[name=name]').focus()
 $(popup).on('submit.media','form',this.proxy(this.onNewFolderSubmit))}
 MediaManager.prototype.onFolderPopupHidden=function(ev,button,popup){$(popup).off('.media','form')}
@@ -366,7 +366,7 @@ var data={exclude:[],path:this.$el.find('[data-type="current-folder"]').val()}
 for(var i=0,len=items.length;i<len;i++){var item=items[i],path=item.getAttribute('data-path')
 if(item.getAttribute('data-item-type')=='folder')
 data.exclude.push(path)}
-$(ev.target).popup({handler:this.options.alias+'::onLoadMovePopup',extraData:data,zIndex:1200})}
+$(ev.target).popup({handler:this.options.alias+'::onLoadMovePopup',extraData:data})}
 MediaManager.prototype.onMovePopupShown=function(ev,button,popup){$(popup).on('submit.media','form',this.proxy(this.onMoveItemsSubmit))}
 MediaManager.prototype.onMoveItemsSubmit=function(ev){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),data={dest:$(ev.target).find('select[name=dest]').val(),originalPath:$(ev.target).find('input[name=originalPath]').val(),files:[],folders:[]}
 for(var i=0,len=items.length;i<len;i++){var item=items[i],path=item.getAttribute('data-path')
@@ -513,7 +513,7 @@ throw new Error('Media Manager image crop popup option "alias" is not set.')
 this.$popupRootElement=$('<div/>')
 this.registerHandlers()}
 MediaManagerImageCropPopup.prototype.show=function(){var data={path:this.path}
-this.$popupRootElement.popup({extraData:data,size:'adaptive',adaptiveHeight:true,handler:this.options.alias+'::onLoadImageCropPopup',zIndex:1200})}
+this.$popupRootElement.popup({extraData:data,size:'adaptive',adaptiveHeight:true,handler:this.options.alias+'::onLoadImageCropPopup'})}
 MediaManagerImageCropPopup.prototype.registerHandlers=function(){this.$popupRootElement.one('hide.oc.popup',this.proxy(this.onPopupHidden))
 this.$popupRootElement.one('shown.oc.popup',this.proxy(this.onPopupShown))}
 MediaManagerImageCropPopup.prototype.unregisterHandlers=function(){this.$popupElement.off('change','[data-control="selection-mode"]',this.proxy(this.onSelectionModeChanged))

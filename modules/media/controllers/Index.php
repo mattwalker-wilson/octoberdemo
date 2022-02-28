@@ -5,7 +5,7 @@ use Media\Widgets\MediaManager;
 use Backend\Classes\Controller;
 
 /**
- * Backend Media Manager
+ * Index route for the Media Manager
  *
  * @package october\media
  * @author Alexey Bobkov, Samuel Georges
@@ -13,24 +13,34 @@ use Backend\Classes\Controller;
 class Index extends Controller
 {
     /**
-     * @var array Permissions required to view this page.
+     * @var array requiredPermissions to view this page.
      */
     public $requiredPermissions = ['media.*'];
 
     /**
-     * Constructor.
+     * __construct
      */
     public function __construct()
     {
         parent::__construct();
 
         BackendMenu::setContext('October.Media', 'media', true);
-        $this->pageTitle = 'backend::lang.media.menu_label';
 
+        $this->pageTitle = 'backend::lang.media.menu_label';
+    }
+
+    /**
+     * beforeDisplay
+     */
+    public function beforeDisplay()
+    {
         $manager = new MediaManager($this, 'manager');
         $manager->bindToController();
     }
 
+    /**
+     * index
+     */
     public function index()
     {
         $this->bodyClass = 'compact-container';

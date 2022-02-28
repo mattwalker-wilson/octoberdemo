@@ -4,6 +4,16 @@ use October\Rain\Support\Facade;
 
 /**
  * System facade
+ *
+ * @method static bool hasModule(string $name)
+ * @method static array listModules()
+ * @method static bool hasDatabase()
+ * @method static bool checkDebugMode()
+ * @method static bool checkSafeMode()
+ * @method static bool checkBaseDir(string $filePath)
+ * @method static string composerToOctoberCode(string $name)
+ * @method static string octoberToComposerCode(string $name, string $type, bool $prefix)
+ *
  * @see \System\Helpers\System
  */
 class System extends Facade

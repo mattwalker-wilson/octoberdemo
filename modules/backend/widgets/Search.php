@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Lang;
+use Throwable;
 use Backend\Classes\WidgetBase;
 
 /**
@@ -136,7 +137,14 @@ class Search extends WidgetBase
          * Trigger class event, merge results as viewable array
          */
         $params = func_get_args();
-        $result = $this->fireEvent('search.submit', [$params]);
+        try {
+            $result = $this->fireEvent('search.submit', [$params]);
+        }
+        catch (Throwable $e) {
+            $this->setActiveTerm('');
+            throw $e;
+        }
+
         if ($result && is_array($result)) {
             return call_user_func_array('array_merge', $result);
         }

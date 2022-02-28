@@ -19,7 +19,7 @@ use October\Rain\Filesystem\Definitions as FileDefinitions;
 use Form as FormHelper;
 
 /**
- * Media Manager widget.
+ * MediaManager widget
  *
  * @package october\media
  * @author Alexey Bobkov, Samuel Georges
@@ -39,27 +39,27 @@ class MediaManager extends WidgetBase
     const FILTER_EVERYTHING = 'everything';
 
     /**
-     * @var string Hash string for the broken image graphic.
+     * @var string brokenImageHash string for the broken image graphic.
      */
     protected $brokenImageHash;
 
     /**
-     * @var boolean Determines whether the widget is in readonly mode or not.
+     * @var boolean readOnly determines whether the widget is in readonly mode or not.
      */
     public $readOnly = false;
 
     /**
-     * @var boolean Determines whether the bottom toolbar is visible.
+     * @var boolean bottomToolbar determines whether the bottom toolbar is visible.
      */
     public $bottomToolbar = false;
 
     /**
-     * @var boolean Determines whether the Crop & Insert button is visible.
+     * @var boolean cropAndInsertButton determines whether the Crop & Insert button is visible.
      */
     public $cropAndInsertButton = false;
 
     /**
-     * Constructor.
+     * __construct
      */
     public function __construct($controller, $alias, $readOnly = false)
     {
@@ -72,7 +72,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Adds widget specific asset files. Use $this->addJs() and $this->addCss()
+     * loadAssets adds widget specific asset files. Use $this->addJs() and $this->addCss()
      * to register new assets to include on the page.
      * @return void
      */
@@ -83,7 +83,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Abort the request with an access-denied code if readOnly mode is active
+     * abortIfReadOnly aborts the request with an access-denied code if readOnly mode is active
      * @return void
      */
     protected function abortIfReadOnly()
@@ -94,7 +94,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Renders the widget.
+     * render the widget.
      * @return string
      */
     public function render()
@@ -109,7 +109,7 @@ class MediaManager extends WidgetBase
     //
 
     /**
-     * Perform search AJAX handler
+     * onSearch perform a search
      * @return array
      */
     public function onSearch()
@@ -125,7 +125,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Change view AJAX handler
+     * onGoToFolder
      * @return array
      */
     public function onGoToFolder()
@@ -150,7 +150,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Generate thumbnail AJAX handler
+     * onGenerateThumbnails
      * @return array
      */
     public function onGenerateThumbnails()
@@ -171,7 +171,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Get thumbnail AJAX handler
+     * onGetSidebarThumbnail
      * @return array
      */
     public function onGetSidebarThumbnail()
@@ -213,7 +213,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Set view preference AJAX handler
+     * onChangeView preference
      * @return array
      */
     public function onChangeView()
@@ -234,7 +234,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Set filter preference AJAX handler
+     * onSetFilter preference
      * @return array
      */
     public function onSetFilter()
@@ -255,7 +255,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Set sorting preference AJAX handler
+     * onSetSorting ets sorting preference
      * @return array
      */
     public function onSetSorting()
@@ -277,7 +277,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Delete library item AJAX handler
+     * onDeleteItem deletes a library item
      * @return array
      */
     public function onDeleteItem()
@@ -374,7 +374,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Show rename item popup AJAX handler
+     * onLoadRenamePopup shows the rename item popup
      * @return array
      */
     public function onLoadRenamePopup()
@@ -393,7 +393,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Reanem library item AJAX handler
+     * onApplyName renames an item
      * @return array
      */
     public function onApplyName()
@@ -476,7 +476,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Create library folder AJAX handler
+     * onCreateFolder shows the create folder popup
      * @return array
      */
     public function onCreateFolder()
@@ -539,7 +539,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Show move item popup AJAX handler
+     * onLoadMovePopup shows the move item popup
      * @return array
      */
     public function onLoadMovePopup()
@@ -575,7 +575,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Move library item AJAX handler
+     * onMoveItems AJAX handler
      * @return array
      */
     public function onMoveItems()
@@ -666,7 +666,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sidebar visibility AJAX handler
+     * onSetSidebarVisible AJAX handler
      * @return array
      */
     public function onSetSidebarVisible()
@@ -677,7 +677,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Start image cropping session AJAX handler
+     * onLoadPopup starts the image cropping session AJAX handler
      * @return array
      */
     public function onLoadPopup()
@@ -690,7 +690,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Load image for cropping AJAX handler
+     * onLoadImageCropPopup for cropping AJAX handler
      * @return array
      */
     public function onLoadImageCropPopup()
@@ -719,7 +719,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * End crop session AJAX handler
+     * onEndCroppingSession AJAX handler
      * @return array
      */
     public function onEndCroppingSession()
@@ -735,7 +735,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Crop image AJAX handler
+     * onCropImage AJAX handler
      * @return array
      */
     public function onCropImage()
@@ -772,7 +772,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Resize image AJAX handler
+     * onResizeImage AJAX handler
      * @return array
      */
     public function onResizeImage()
@@ -810,8 +810,7 @@ class MediaManager extends WidgetBase
     //
 
     /**
-     * Internal method to prepare view variables.
-     * @return array
+     * prepareVars is an internal method to prepare view variables.
      */
     protected function prepareVars()
     {
@@ -846,7 +845,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns a list of folders and files in a Library folder.
+     * listFolderItems returns a list of folders and files in a Library folder.
      * @param string $searchTerm
      * @param string $filter
      * @param string $sortBy
@@ -860,7 +859,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Finds files from within the media library based on supplied criteria,
+     * findFiles from within the media library based on supplied criteria,
      * returns an array of MediaLibraryItem objects.
      * @param string $searchTerm
      * @param string $filter
@@ -875,7 +874,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the user current folder from the session state
+     * setCurrentFolder sets the user current folder from the session state
      * @param string $path
      * @return void
      */
@@ -887,7 +886,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user current folder from the session state
+     * getCurrentFolder gets the user current folder from the session state
      * @return string
      */
     protected function getCurrentFolder()
@@ -896,7 +895,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the user filter from the session state
+     * setFilter sets the user filter from the session state
      * @param string $filter
      * @return void
      */
@@ -916,7 +915,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user filter from the session state
+     * getFilter gets the user filter from the session state
      * @return string
      */
     protected function getFilter()
@@ -925,7 +924,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the user search term from the session state
+     * setSearchTerm sets the user search term from the session state
      * @param string $searchTerm
      * @return void
      */
@@ -935,7 +934,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user search term from the session state
+     * getSearchTerm gets the user search term from the session state
      * @return string
      */
     protected function getSearchTerm()
@@ -944,7 +943,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the user sort column from the session state
+     * setSortBy sets the user sort column from the session state
      * @param string $sortBy
      * @return void
      */
@@ -962,7 +961,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user sort column from the session state
+     * getSortBy gets the user sort column from the session state
      * @return string
      */
     protected function getSortBy()
@@ -971,7 +970,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the user sort direction from the session state
+     * setSortDirection sets the user sort direction from the session state
      * @param string $sortDirection
      * @return void
      */
@@ -988,7 +987,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user sort direction from the session state
+     * getSortDirection gets the user sort direction from the session state
      * @return string
      */
     protected function getSortDirection()
@@ -997,7 +996,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Gets the user selection parameters from the session state
+     * getSelectionParams gets the user selection parameters from the session state
      * @return array
      */
     protected function getSelectionParams()
@@ -1028,7 +1027,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Stores the user selection parameters in the session state
+     * setSelectionParams stores the user selection parameters in the session state
      * @param string $selectionMode
      * @param int $selectionWidth
      * @param int $selectionHeight
@@ -1060,7 +1059,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Sets the sidebar visible state
+     * setSidebarVisible state
      * @param bool $visible
      * @return void
      */
@@ -1070,7 +1069,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Checks if the sidebar is visible
+     * getSidebarVisible checks if the sidebar is visible
      * @return bool
      */
     protected function getSidebarVisible()
@@ -1079,7 +1078,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns an icon for the item type
+     * itemTypeToIconClass returns an icon for the item type
      * @param Media\Classes\MediaLibraryItem $item
      * @param string $itemType
      * @return string
@@ -1103,7 +1102,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Splits a path in to segments
+     * splitPathToSegments
      * @param string $path
      * @return array
      */
@@ -1126,7 +1125,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Stores a view mode in the session
+     * setViewMode stores a view mode in the session
      * @param string $viewMode
      * @return void
      */
@@ -1144,7 +1143,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns the current view mode stored in the session
+     * getViewMode returns the current view mode stored in the session
      * @return string
      */
     protected function getViewMode()
@@ -1153,7 +1152,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns thumbnail parameters
+     * getThumbnailParams returns thumbnail parameters
      * @param string $viewMode
      * @return array
      */
@@ -1178,7 +1177,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Generates a thumbnail image path
+     * getThumbnailImagePath generatess a thumbnail image path
      * @param array|null $thumbnailParams
      * @param string $itemPath
      * @param int $lastModified
@@ -1201,7 +1200,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Preferred thumbnail image extension
+     * getThumbnailImageExtension
      * @param string $itemPath
      * @return string
      */
@@ -1217,7 +1216,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns the URL to a thumbnail
+     * getThumbnailImageUrl returns the URL to a thumbnail
      * @param string $imagePath
      * @return string
      */
@@ -1227,7 +1226,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Check if a thumbnail exists
+     * thumbnailExists checks if a thumbnail exists
      * @param array|null $thumbnailParams
      * @param string $itemPath
      * @param int $lastModified
@@ -1247,7 +1246,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Check if a thumbnail has caused an error
+     * thumbnailIsError checks if a thumbnail has caused an error
      * @param string $thumbnailPath
      * @return bool
      */
@@ -1259,7 +1258,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Get temporary local file path
+     * getLocalTempFilePath
      * @param string $fileName
      * @return string
      */
@@ -1279,7 +1278,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Get thumbnail directory
+     * getThumbnailDirectory
      * @return string
      */
     protected function getThumbnailDirectory()
@@ -1292,7 +1291,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Get placeholder identifier
+     * getPlaceholderId
      * @param Media\Classes\MediaLibraryItem $item
      * @return string
      */
@@ -1302,7 +1301,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Generate thumbnail
+     * generateThumbnail
      * @param array $thumbnailInfo
      * @param array|null $thumbnailParams
      * @return array
@@ -1394,7 +1393,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Resize an image
+     * resizeImage
      * @param string $fullThumbnailPath
      * @param array $thumbnailParams
      * @param string $tempFilePath
@@ -1427,7 +1426,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns the path for the broken image graphic
+     * getBrokenImagePath returns the path for the broken image graphic
      * @return string
      */
     protected function getBrokenImagePath()
@@ -1436,7 +1435,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Returns a CRC32 hash for a broken image
+     * getBrokenImageHash returns a CRC32 hash for a broken image
      * @return string
      */
     protected function getBrokenImageHash()
@@ -1451,7 +1450,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Copy broken image to destination
+     * copyBrokenImage to destination
      * @param string $path
      * @return void
      */
@@ -1471,7 +1470,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Get target dimensions
+     * getTargetDimensions
      * @param int $width
      * @param int $height
      * @param string $originalImagePath
@@ -1499,8 +1498,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Detect the upload post flag
-     * @return void
+     * checkUploadPostback detects the upload post flag.
      */
     protected function checkUploadPostback()
     {
@@ -1536,8 +1534,9 @@ class MediaManager extends WidgetBase
             /*
              * File name contains non-latin characters, attempt to slug the value
              */
-            if (!$this->validateFileName($fileName)) {
-                $fileNameClean = $this->cleanFileName(File::name($fileName));
+            $autoRename = Config::get('media.auto_rename') === 'slug';
+            if (!$this->validateFileName($fileName) || $autoRename) {
+                $fileNameClean = $this->slugFileName(File::name($fileName));
                 $fileName = $fileNameClean . '.' . $extension;
             }
 
@@ -1563,8 +1562,8 @@ class MediaManager extends WidgetBase
              * getRealPath() can be empty for some environments (IIS)
              */
             $realPath = empty(trim($uploadedFile->getRealPath()))
-                             ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
-                             : $uploadedFile->getRealPath();
+                ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
+                : $uploadedFile->getRealPath();
 
             MediaLibrary::instance()->put(
                 $filePath,
@@ -1604,7 +1603,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Validate a proposed media item file name.
+     * validateFileName validates a proposed media item file name.
      * @param string
      * @return bool
      */
@@ -1622,7 +1621,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Check for blocked / unsafe file extensions
+     * validateFileType checks for blocked / unsafe file extensions
      * @param string
      * @return bool
      */
@@ -1640,12 +1639,12 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Creates a slug form the string. A modified version of Str::slug
+     * slugFileName creates a slug form the string. A modified version of Str::slug
      * with the main difference that it accepts @-signs
      * @param string $name
      * @return string
      */
-    protected function cleanFileName($name)
+    protected function slugFileName($name)
     {
         $title = Str::ascii($name);
 
@@ -1667,7 +1666,7 @@ class MediaManager extends WidgetBase
     //
 
     /**
-     * Returns the crop session working directory path
+     * getCropSessionDirPath returns the crop session working directory path
      * @param string $cropSessionKey
      * @return string
      */
@@ -1677,7 +1676,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Prepares an image for cropping and returns payload containing a URL
+     * getCropEditImageUrlAndSize prepares an image for cropping and returns payload containing a URL
      * @param string $path
      * @param string $cropSessionKey
      * @param array $params
@@ -1762,7 +1761,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Cleans up the directory used for cropping based on the session key
+     * removeCropEditDir cleans up the directory used for cropping based on the session key
      * @param string $cropSessionKey
      * @return void
      */
@@ -1777,7 +1776,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Business logic to crop a media library image
+     * cropImage is business logic to crop a media library image
      * @param string $imageSrcPath
      * @param string $selectionData
      * @param string $cropSessionKey
@@ -1881,12 +1880,12 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Detect if image is vector graphic (SVG)
+     * isVector detects if image is vector graphic (SVG)
      * @param string $path
      * @return boolean
      */
     protected function isVector($path)
     {
-        return (pathinfo($path, PATHINFO_EXTENSION) === 'svg');
+        return pathinfo($path, PATHINFO_EXTENSION) === 'svg';
     }
 }

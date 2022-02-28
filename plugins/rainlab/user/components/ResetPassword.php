@@ -6,6 +6,7 @@ use Mail;
 use Validator;
 use ValidationException;
 use ApplicationException;
+use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\User as UserModel;
 
@@ -33,8 +34,24 @@ class ResetPassword extends ComponentBase
                 'description' => /*The page URL parameter used for the reset code*/'rainlab.user::lang.reset_password.code_param_desc',
                 'type'        => 'string',
                 'default'     => 'code'
-            ]
+            ],
+            'resetPage' => [
+                'title'       => /* Reset Page */'rainlab.user::lang.account.reset_page',
+                'description' => /* Select a page to use for resetting the account password */'rainlab.user::lang.account.reset_page_comment',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ],
         ];
+    }
+
+    /**
+     * getResetPageOptions
+     */
+    public function getResetPageOptions()
+    {
+        return [
+            '' => '- current page -',
+        ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
     //
@@ -134,7 +151,7 @@ class ResetPassword extends ComponentBase
             throw new ValidationException($errorFields);
         }
 
-        // Check needed for compatbility with legacy systems
+        // Check needed for compatibility with legacy systems
         if (method_exists(\RainLab\User\Classes\AuthManager::class, 'clearThrottleForUserId')) {
             Auth::clearThrottleForUserId($user->id);
         }

@@ -17,14 +17,14 @@ class Country extends Model
 
     public $hasMany = [
         'users' => [
-            'Database\Tester\Models\User',
+            User::class,
         ],
     ];
 
     public $hasManyThrough = [
         'posts' => [
-            'Database\Tester\Models\Post',
-            'through' => 'Database\Tester\Models\Author',
+            Post::class,
+            'through' => Author::class,
         ]
     ];
 }

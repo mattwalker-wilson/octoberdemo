@@ -132,6 +132,10 @@ class FormTabs implements IteratorAggregate
         if (array_key_exists('lazy', $config)) {
             $this->lazy = $config['lazy'];
         }
+
+        if (array_key_exists('linkable', $config)) {
+            $this->linkable = (bool) $config['linkable'];
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-fileupload style-file-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
+    class="field-fileupload size-<?= $size ?> is-file is-multi is-sortable <?= count($fileList) ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="fileupload"
     data-upload-handler="<?= $this->getEventHandler('onUpload') ?>"
     data-template="#<?= $this->getId('template') ?>"

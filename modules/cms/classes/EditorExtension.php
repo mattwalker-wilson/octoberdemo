@@ -365,7 +365,12 @@ class EditorExtension extends ExtensionBase
 
         $this->createCmsSectionThemeMenuItems($section);
     }
-    
+
+    /**
+     * getAssetsPath returns the asset path for a theme
+     * @param $theme Theme
+     * @return string
+     */
     public function getAssetsPath($theme = null)
     {
         if (!$theme) {

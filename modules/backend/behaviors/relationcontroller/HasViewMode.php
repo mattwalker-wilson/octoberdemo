@@ -53,6 +53,8 @@ trait HasViewMode
          * Multiple (has many, belongs to many)
          */
         if ($this->viewMode === 'multi') {
+            $isPivot = in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany']);
+
             $config = $this->makeConfigForMode('view', 'list');
             $config->model = $this->relationModel;
             $config->alias = $this->alias . 'ViewList';
@@ -86,6 +88,10 @@ trait HasViewMode
                 $config->noRecordsMessage = $emptyMessage;
             }
 
+            if ($isPivot) {
+                $config->model->setRelation('pivot', $this->relationObject->newPivot());
+            }
+
             $widget = $this->makeWidget(\Backend\Widgets\Lists::class, $config);
 
             /*
@@ -110,7 +116,7 @@ trait HasViewMode
             /*
              * Constrain the query by the relationship and deferred items
              */
-            $widget->bindEvent('list.extendQuery', function ($query) {
+            $widget->bindEvent('list.extendQuery', function ($query) use ($isPivot) {
                 $this->relationObject->setQuery($query);
 
                 $sessionKey = $this->deferredBinding ? $this->relationGetSessionKey() : null;
@@ -125,7 +131,7 @@ trait HasViewMode
                 /*
                  * Allows pivot data to enter the fray
                  */
-                if (in_array($this->relationType, ['belongsToMany', 'morphToMany', 'morphedByMany'])) {
+                if ($isPivot) {
                     $this->relationObject->setQuery($query->getQuery());
                     return $this->relationObject;
                 }

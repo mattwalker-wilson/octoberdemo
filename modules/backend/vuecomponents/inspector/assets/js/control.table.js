@@ -96,7 +96,11 @@ Vue.component('backend-component-inspector-control-table', {
     watch: {
         'layoutUpdateData.modalShown': function onModalShown() {
             if (this.control.defaultFocus) {
-                this.focusControl();
+                // Focus after visbility animations are ready
+                var self = this;
+                setTimeout(function() {
+                    self.focusControl();
+                }, 100);
             }
         }
     },

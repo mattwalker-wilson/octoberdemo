@@ -24,6 +24,6 @@ class Phone extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'author' => 'Database\Tester\Models\Author',
+        'author' => Author::class,
     ];
 }

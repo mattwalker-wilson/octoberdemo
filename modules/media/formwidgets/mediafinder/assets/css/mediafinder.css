@@ -108,7 +108,7 @@
   margin-bottom: 0;
 }
 /*
-.field-mediafinder.style-file-single {
+.field-mediafinder.is-file.is-single {
     background-color: @color-form-field-bg;
     border: 1px solid @color-form-field-border;
     overflow: hidden;
