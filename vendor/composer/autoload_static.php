@@ -9,23 +9,23 @@ class ComposerStaticInit6ad0aa9e4c353ce53432ce45c2b7c87f
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
-        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
-        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'cf44199717bf3055b6c87791a4b20b22' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/helpers.php',
         '9ab6c0b43d4b818d98f088285310c9d9' => __DIR__ . '/..' . '/october/rain/src/Support/helpers.php',
         '52d8d88278ae3691209807d759d9bca3' => __DIR__ . '/..' . '/october/rain/src/Support/polyfills.php',
@@ -116,6 +116,10 @@ class ComposerStaticInit6ad0aa9e4c353ce53432ce45c2b7c87f
             'League\\Csv\\' => 11,
             'League\\CommonMark\\' => 18,
             'Laravel\\Tinker\\' => 15,
+        ),
+        'K' => 
+        array (
+            'Kharanenka\\Helper\\' => 18,
         ),
         'J' => 
         array (
@@ -386,6 +390,10 @@ class ComposerStaticInit6ad0aa9e4c353ce53432ce45c2b7c87f
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Kharanenka\\Helper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kharanenka/php-result-store/src/Kharanenka/Helper',
+        ),
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
@@ -522,6 +530,30 @@ class ComposerStaticInit6ad0aa9e4c353ce53432ce45c2b7c87f
                 0 => __DIR__ . '/..' . '/wikimedia/less.php/lib',
             ),
         ),
+        'K' => 
+        array (
+            'Kharanenka\\Scope\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/kharanenka/laravel-scope-active/src',
+                1 => __DIR__ . '/..' . '/kharanenka/laravel-scope-category-belongs-to/src',
+                2 => __DIR__ . '/..' . '/kharanenka/laravel-scope-code/src',
+                3 => __DIR__ . '/..' . '/kharanenka/laravel-scope-date/src',
+                4 => __DIR__ . '/..' . '/kharanenka/laravel-scope-external-id/src',
+                5 => __DIR__ . '/..' . '/kharanenka/laravel-scope-hidden/src',
+                6 => __DIR__ . '/..' . '/kharanenka/laravel-scope-moderation/src',
+                7 => __DIR__ . '/..' . '/kharanenka/laravel-scope-name/src',
+                8 => __DIR__ . '/..' . '/kharanenka/laravel-scope-slug/src',
+                9 => __DIR__ . '/..' . '/kharanenka/laravel-scope-type/src',
+                10 => __DIR__ . '/..' . '/kharanenka/laravel-scope-user-belongs-to/src',
+            ),
+            'Kharanenka\\Helper\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/kharanenka/laravel-cache-helper/src',
+                1 => __DIR__ . '/..' . '/kharanenka/oc-data-file-model/src',
+                2 => __DIR__ . '/..' . '/kharanenka/oc-pagination/src',
+                3 => __DIR__ . '/..' . '/kharanenka/php-pagination/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -557,6 +589,21 @@ class ComposerStaticInit6ad0aa9e4c353ce53432ce45c2b7c87f
         'JSMin' => __DIR__ . '/..' . '/linkorb/jsmin-php/src/jsmin-1.1.1.php',
         'JSMinException' => __DIR__ . '/..' . '/linkorb/jsmin-php/src/jsmin-1.1.1.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Kharanenka\\Helper\\CCache' => __DIR__ . '/..' . '/kharanenka/laravel-cache-helper/src/Kharanenka/Helper/CCache.php',
+        'Kharanenka\\Helper\\DataFileModel' => __DIR__ . '/..' . '/kharanenka/oc-data-file-model/src/Kharanenka/Helper/DataFileModel.php',
+        'Kharanenka\\Helper\\Pagination' => __DIR__ . '/..' . '/kharanenka/oc-pagination/src/Kharanenka/Helper/Pagination.php',
+        'Kharanenka\\Helper\\PaginationHelper' => __DIR__ . '/..' . '/kharanenka/php-pagination/src/Kharanenka/Helper/PaginationHelper.php',
+        'Kharanenka\\Scope\\ActiveField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-active/src/Kharanenka/Scope/ActiveField.php',
+        'Kharanenka\\Scope\\CategoryBelongsTo' => __DIR__ . '/..' . '/kharanenka/laravel-scope-category-belongs-to/src/Kharanenka/Scope/CategoryBelongsTo.php',
+        'Kharanenka\\Scope\\CodeField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-code/src/Kharanenka/Scope/CodeField.php',
+        'Kharanenka\\Scope\\DateField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-date/src/Kharanenka/Scope/DateField.php',
+        'Kharanenka\\Scope\\ExternalIDField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-external-id/src/Kharanenka/Scope/ExternalIDField.php',
+        'Kharanenka\\Scope\\HiddenField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-hidden/src/Kharanenka/Scope/HiddenField.php',
+        'Kharanenka\\Scope\\ModerationField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-moderation/src/Kharanenka/Scope/ModerationField.php',
+        'Kharanenka\\Scope\\NameField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-name/src/Kharanenka/Scope/NameField.php',
+        'Kharanenka\\Scope\\SlugField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-slug/src/Kharanenka/Scope/SlugField.php',
+        'Kharanenka\\Scope\\TypeField' => __DIR__ . '/..' . '/kharanenka/laravel-scope-type/src/Kharanenka/Scope/TypeField.php',
+        'Kharanenka\\Scope\\UserBelongsTo' => __DIR__ . '/..' . '/kharanenka/laravel-scope-user-belongs-to/src/Kharanenka/Scope/UserBelongsTo.php',
         'Lang' => __DIR__ . '/..' . '/october/rain/helpers/Lang.php',
         'Log' => __DIR__ . '/..' . '/october/rain/helpers/Log.php',
         'Mail' => __DIR__ . '/..' . '/october/rain/helpers/Mail.php',

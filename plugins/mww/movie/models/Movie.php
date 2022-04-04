@@ -1,14 +1,21 @@
 <?php namespace mww\Movie\Models;
-
 use Model;
-
 /**
  * Model
  */
 class Movie extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Sortable;
     
+    /**
+     * @var array Generate slugs for these attributes.
+     */
+
+    protected $slugs = ['actor_slug' => ['movie_title']];
+
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.

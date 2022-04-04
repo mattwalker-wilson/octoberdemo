@@ -20,6 +20,8 @@ pageNumber = "{{ :page }}"
 {% set detailsKeyColumn = actorList.detailsKeyColumn %}
 {% set detailsUrlParameter = actorList.detailsUrlParameter %}
 
+<h2>Actors</h2>
+
 <ul class="record-list">
     {% for record in records %}
         <li><a href="actor/{{ record.actor_slug }}">{{ record.full_name }}</a></li>

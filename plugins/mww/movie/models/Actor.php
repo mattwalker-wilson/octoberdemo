@@ -8,10 +8,9 @@ use Model;
 class Actor extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
     use \October\Rain\Database\Traits\SoftDelete;
-
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Sortable;
 
     /**
      * @var array Generate slugs for these attributes.
